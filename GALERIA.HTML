@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galería | ReciTunja</title>
+  <meta name="description" content="Galería fotográfica de ReciTunja - Momentos de nuestra labor de reciclaje en Tunja.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <a href="INICIO.html" class="logo"><img src="logo.png" alt="ReciTunja"></a>
+      <nav class="nav-links">
+        <a href="INICIO.html">Inicio</a>
+        <a href="LA EMPRESA.HTML">La empresa</a>
+        <a href="GALERIA.HTML" class="active">Galería</a>
+        <a href="EDUCACION.HTML">Educación ambiental</a>
+        <a href="SEPARACION.HTML">Separación</a>
+        <a href="DOCUMENTOS LEGALES.HTML">Documentos legales</a>
+        <a href="PQRS.HTML">PQRS</a>
+      </nav>
+      <a href="COMUNICATE CON NOSOTROS.HTML" class="btn btn-primary">Contáctanos <i class="fa-solid fa-arrow-right" style="margin-left:8px;"></i></a>
+      <button class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <h1>Galería</h1>
+    <p>Momentos que capturan nuestra pasión por el reciclaje y la transformación ambiental.</p>
+  </section>
+
+  <section class="gallery-section">
+    <div class="container">
+      <div class="swiper gallery-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="_MG_6829_2.jpg" alt="Equipo Recitunja">
+            <div class="slide-overlay">Equipo Recitunja</div>
+          </div>
+          <div class="swiper-slide">
+            <img src="_MG_6831_1.jpg" alt="Actividades de reciclaje">
+            <div class="slide-overlay">Actividades de reciclaje</div>
+          </div>
+          <div class="swiper-slide">
+            <img src="_MG_6848_1.jpg" alt="Jornada de recolección">
+            <div class="slide-overlay">Jornada de recolección</div>
+          </div>
+          <div class="swiper-slide">
+            <img src="_MG_6852_1.jpg" alt="Nuestro equipo en acción">
+            <div class="slide-overlay">Nuestro equipo en acción</div>
+          </div>
+          <div class="swiper-slide">
+            <img src="_MG_6872_1.jpg" alt="Labores de reciclaje">
+            <div class="slide-overlay">Labores de reciclaje</div>
+          </div>
+          <div class="swiper-slide">
+            <img src="_MG_6892_1.jpg" alt="Rutas selectivas Recitunja">
+            <div class="slide-overlay">Rutas selectivas Recitunja</div>
+          </div>
+          <div class="swiper-slide">
+            <img src="_MG_6921_1 Modificado.jpg" alt="Equipo completo Recitunja">
+            <div class="slide-overlay">Equipo completo Recitunja</div>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <a href="INICIO.html" class="footer-logo"><img src="logo.png" alt="ReciTunja"></a>
+        <div class="footer-links">
+          <a href="INICIO.html">Inicio</a>
+          <a href="LA EMPRESA.HTML">La empresa</a>
+          <a href="GALERIA.HTML">Galería</a>
+          <a href="EDUCACION.HTML">Educación ambiental</a>
+          <a href="SEPARACION.HTML">Separación</a>
+          <a href="DOCUMENTOS LEGALES.HTML">Documentos</a>
+          <a href="PQRS.HTML">PQRS</a>
+          <a href="COMUNICATE CON NOSOTROS.HTML">Contacto</a>
+        </div>
+        <div class="social-links">
+          <a href="https://www.facebook.com/share/1HF2E2ewop/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://x.com/ReciTunja" target="_blank" rel="noopener noreferrer" aria-label="Twitter X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://www.instagram.com/asociacion_recitunja" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.recitunja.com/feed/" target="_blank" rel="noopener noreferrer" aria-label="RSS"><i class="fa-solid fa-rss"></i></a>
+        </div>
+      </div>
+      <div class="footer-bottom"><p>Diseñado por Marketinglive.com.co - Todos los derechos reservados Recitunja.com &copy; 2025</p></div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/3123365396?text=Hola Asesor En Linea escribo desde la pagina web de Recitunja, necesito asesoria" class="whatsapp-widget" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a>
+
+  <script src="main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    /* El DOM ya está listo aquí (scripts al final del body),
+       llamar Swiper directamente evita el delay del DOMContentLoaded */
+    new Swiper('.gallery-swiper', {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
+      centeredSlides: true,
+      effect: 'coverflow',
+      coverflowEffect: {
+        rotate: 30,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: false
+      },
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      },
+      breakpoints: {
+        640:  { slidesPerView: 2, spaceBetween: 20 },
+        1024: { slidesPerView: 3, spaceBetween: 24 }
+      }
+    });
+  </script>
+</body>
+</html>

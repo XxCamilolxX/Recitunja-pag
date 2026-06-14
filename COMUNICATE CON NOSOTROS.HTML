@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comunícate con Nosotros | ReciTunja</title>
+  <meta name="description" content="Contacta a ReciTunja - Email, teléfono, dirección y formulario de contacto.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <a href="INICIO.html" class="logo"><img src="logo.png" alt="ReciTunja"></a>
+      <nav class="nav-links">
+        <a href="INICIO.html">Inicio</a>
+        <a href="LA EMPRESA.HTML">La empresa</a>
+        <a href="GALERIA.HTML">Galería</a>
+        <a href="INICIO.html#educacion-ambiental">Educación ambiental</a>
+        <a href="INICIO.html#separacion-residuos">Separación</a>
+        <a href="DOCUMENTOS LEGALES.HTML">Documentos legales</a>
+        <a href="PQRS.HTML">PQRS</a>
+      </nav>
+      <a href="COMUNICATE CON NOSOTROS.HTML" class="btn btn-primary active">Contáctanos <i class="fa-solid fa-arrow-right" style="margin-left:8px;"></i></a>
+      <button class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <h1>Comunícate con Nosotros</h1>
+    <p>Comunícate con nosotros y nos pondremos en contacto contigo tan pronto como nos sea posible. ¡Esperamos tener noticias tuyas!</p>
+  </section>
+
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="subtitle">Información de Contacto</div>
+          <h2>Contáctanos</h2>
+          <p>Estamos aquí para ayudarte. Puedes escribirnos, llamarnos o visitarnos en nuestra sede.</p>
+
+          <div class="info-card">
+            <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div>
+              <h4>Correo Electrónico</h4>
+              <p><a href="mailto:recitunja@gmail.com">recitunja@gmail.com</a></p>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+            <div>
+              <h4>Teléfono</h4>
+              <p><a href="tel:3123365396">312 336 5396</a></p>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div>
+              <h4>Dirección</h4>
+              <p>Cr 13 No 3 - 171 SUR Tunja, Boyacá, Colombia</p>
+            </div>
+          </div>
+          <div class="map-container">
+            <iframe src="https://www.google.com/maps?q=Cr+13+No+3+-+171+SUR+Tunja+Boyac%C3%A1+Colombia&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <div class="subtitle">Escríbenos</div>
+          <h2 style="font-size: 1.75rem; margin-bottom: 1.5rem;">Formulario de Contacto</h2>
+          <form id="contact-form">
+            <div class="form-group">
+              <label for="contact-nombre">Nombre *</label>
+              <input type="text" id="contact-nombre" name="nombre" required placeholder="Tu nombre completo">
+            </div>
+            <div class="form-group">
+              <label for="contact-email">Email *</label>
+              <input type="email" id="contact-email" name="email" required placeholder="correo@ejemplo.com">
+            </div>
+            <div class="form-group">
+              <label for="contact-mensaje">Mensaje *</label>
+              <textarea id="contact-mensaje" name="mensaje" required placeholder="¿En qué podemos ayudarte?"></textarea>
+            </div>
+            <button type="submit" class="btn-submit"><i class="fa-solid fa-paper-plane" style="margin-right: 8px;"></i> Enviar Mensaje</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <a href="INICIO.html" class="footer-logo"><img src="logo.png" alt="ReciTunja"></a>
+        <div class="footer-links">
+          <a href="INICIO.html">Inicio</a><a href="LA EMPRESA.HTML">La empresa</a><a href="GALERIA.HTML">Galería</a>
+          <a href="INICIO.html#educacion-ambiental">Educación ambiental</a><a href="INICIO.html#separacion-residuos">Separación</a>
+          <a href="DOCUMENTOS LEGALES.HTML">Documentos</a><a href="PQRS.HTML">PQRS</a><a href="COMUNICATE CON NOSOTROS.HTML">Contacto</a>
+        </div>
+        <div class="social-links">
+          <a href="https://www.facebook.com/share/1HF2E2ewop/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://x.com/ReciTunja" target="_blank" rel="noopener noreferrer" aria-label="Twitter X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://www.instagram.com/asociacion_recitunja" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.recitunja.com/feed/" target="_blank" rel="noopener noreferrer" aria-label="RSS"><i class="fa-solid fa-rss"></i></a>
+        </div>
+      </div>
+      <div class="footer-bottom"><p>Diseñado por Marketinglive.com.co - Todos los derechos reservados Recitunja.com &copy; 2025</p></div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/3123365396?text=Hola Asesor En Linea escribo desde la pagina web de Recitunja, necesito asesoria" class="whatsapp-widget" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+  <script src="main.js"></script>
+</body>
+</html>
