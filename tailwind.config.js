@@ -8,23 +8,24 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#60df78', // verdecito primary
-          container: '#2eb453',
-          dark: '#228b3f',
+          DEFAULT: '#5bbf7a',   // verde primario suave
+          container: '#3da862', // medio
+          dark: '#2a8a4a',      // oscuro para hover
+          light: '#b8e6c7',     // pastel claro
         },
         secondary: {
-          DEFAULT: '#b5ccbf',
-          dark: '#061a12', // secondary dark green
+          DEFAULT: '#a8cdb8',   // verde grisáceo claro
+          dark: '#1e4d38',      // verde oscuro (más suave que antes)
         },
         surface: {
-          DEFAULT: '#131313',
-          bright: '#393939',
-          low: '#1c1b1b',
-          high: '#2a2a2a',
-          highest: '#353535',
+          DEFAULT: '#f0f7f3',   // casi blanco con toque verde
+          bright: '#ffffff',
+          low: '#e6f2eb',
+          high: '#d4eade',
+          highest: '#c2e2cc',
         },
         cream: {
-          DEFAULT: '#f5f0eb',
+          DEFAULT: '#eef8f2',   // crema con toque mint
         },
         recycle: {
           carton: '#C8A165',

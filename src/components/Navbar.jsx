@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { WaveLink, useWaveTransition } from './WaveTransitionContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const { navbarRef } = useWaveTransition();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,24 +44,25 @@ const Navbar = () => {
 
   return (
     <header 
+      ref={navbarRef}
       className={`fixed top-0 left-0 w-full z-[1000] transition-all duration-300 ${
         isScrolled ? 'py-3 bg-secondary-dark/95 shadow-lg blur-glass border-b border-white/10' : 'py-5 bg-secondary-dark/80 border-b border-white/5'
       } backdrop-blur-md`}
     >
       <div className="max-w-[1200px] mx-auto px-4 md:px-8 flex justify-between items-center">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
+        <WaveLink to="/" className="flex items-center gap-2">
           <img 
             src="/logo.png" 
             alt="ReciTunja Logo" 
             className="w-[45px] h-[45px] object-cover rounded-full border border-white/20"
           />
-        </Link>
+        </WaveLink>
 
         {/* Desktop Links */}
         <nav className="hidden xl:flex items-center gap-8">
           {navLinks.map((link) => (
-            <Link
+            <WaveLink
               key={link.path}
               to={link.path}
               className={`relative font-medium text-sm transition-colors duration-300 py-1 ${
@@ -71,19 +74,19 @@ const Navbar = () => {
               }`}
             >
               {link.name}
-            </Link>
+            </WaveLink>
           ))}
         </nav>
 
         {/* Desktop CTA */}
         <div className="hidden xl:block">
-          <Link 
+          <WaveLink 
             to="/contacto" 
             className="inline-flex items-center justify-center px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 bg-primary text-secondary-dark hover:bg-primary-dark hover:text-white hover:-translate-y-0.5 hover:shadow-md active:translate-y-0"
           >
             Contáctanos 
             <i className="fa-solid fa-arrow-right ml-2 text-xs"></i>
-          </Link>
+          </WaveLink>
         </div>
 
         {/* Burger Button */}
@@ -104,7 +107,7 @@ const Navbar = () => {
       >
         <div className="max-w-[1200px] mx-auto px-6 flex flex-col gap-4">
           {navLinks.map((link) => (
-            <Link
+            <WaveLink
               key={link.path}
               to={link.path}
               className={`font-semibold text-base py-2 border-b border-white/5 transition-colors ${
@@ -112,15 +115,15 @@ const Navbar = () => {
               }`}
             >
               {link.name}
-            </Link>
+            </WaveLink>
           ))}
-          <Link 
+          <WaveLink 
             to="/contacto" 
             className="w-full mt-2 inline-flex items-center justify-center px-6 py-3 rounded-full font-bold text-sm bg-primary text-secondary-dark hover:bg-primary-dark hover:text-white transition-colors"
           >
             Contáctanos 
             <i className="fa-solid fa-arrow-right ml-2 text-xs"></i>
-          </Link>
+          </WaveLink>
         </div>
       </div>
     </header>

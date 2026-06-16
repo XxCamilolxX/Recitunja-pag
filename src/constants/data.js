@@ -73,7 +73,7 @@ export const APROVECHABLES = [
     color: "#A0A0A0", // Metal
     colorClass: "text-recycle-metal border-recycle-metal",
     bgClass: "bg-recycle-metal",
-    icon: "fa-can-food",
+    icon: "fa-prescription-bottle",
     details: "Las latas de aluminio y hojalata son altamente valoradas. Enjuágalas brevemente, especialmente las de atún y sardinas."
   },
   {

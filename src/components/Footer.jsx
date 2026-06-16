@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { WaveLink } from './WaveTransitionContext';
 
 const Footer = () => {
   const socialLinks = [
@@ -21,29 +21,29 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-secondary-dark text-white/70 py-16 border-t border-white/5">
+    <footer className="bg-secondary-dark text-white/70 py-16 border-t border-white/5 relative z-10">
       <div className="max-w-[1200px] mx-auto px-4 md:px-8 flex flex-col items-center">
         {/* Content Wrapper */}
         <div className="w-full flex flex-col md:flex-row justify-between items-center gap-8 mb-8 pb-8 border-b border-white/5">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
+          <WaveLink to="/" className="flex items-center gap-2">
             <img 
               src="/logo.png" 
               alt="ReciTunja Logo" 
               className="h-[45px] object-cover rounded-full border border-white/10"
             />
-          </Link>
+          </WaveLink>
 
           {/* Links */}
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
             {links.map((link) => (
-              <Link 
+              <WaveLink 
                 key={link.path} 
                 to={link.path}
                 className="text-sm text-white/60 hover:text-primary transition-colors duration-300"
               >
                 {link.name}
-              </Link>
+              </WaveLink>
             ))}
           </div>
 

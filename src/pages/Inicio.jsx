@@ -45,31 +45,41 @@ const Inicio = () => {
   useGSAP(() => {
     if (isMobile || reducedMotion) return;
 
-    // Reset properties before building timeline to avoid caching incorrect offsets
+    // Reset initial rotation values
     gsap.set(orbitRef.current, { rotation: 0 });
     iconsRef.current.forEach((icon) => {
       if (icon) gsap.set(icon, { rotation: 0 });
     });
 
-    // Outer container scroll pin
+    // 1. Initial State configuration (Item 0 should be fully active when page loads)
+    gsap.set('#header-0', { opacity: 1, y: 0, scale: 1, pointerEvents: 'auto' });
+    gsap.set('#details-0', { opacity: 1, y: 0, scale: 1, pointerEvents: 'auto' });
+    gsap.set('#orbit-icon-0', {
+      scale: 1.3,
+      borderColor: APROVECHABLES[0].color,
+      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+      boxShadow: `0 0 25px ${APROVECHABLES[0].color}80`,
+    });
+
+    // Pinned container timeline
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current, // h-[500vh] container
         start: 'top top',
         end: 'bottom bottom',
         scrub: 0.5,
-        pin: stickyRef.current, // Pin the 100vh inner container!
+        pin: stickyRef.current, // Pin the 100vh inner container
       }
     });
 
-    // 1. Rotate the orbit ring
+    // 2. Rotate the orbit ring
     tl.to(orbitRef.current, {
       rotation: 360,
       ease: 'none',
       duration: APROVECHABLES.length,
     }, 0);
 
-    // 2. Counter-rotate icons to keep them upright
+    // 3. Counter-rotate icons to keep them upright
     iconsRef.current.forEach((icon) => {
       if (icon) {
         tl.to(icon, {
@@ -80,34 +90,56 @@ const Inicio = () => {
       }
     });
 
-    // 3. Sequential Reveal of Panels and Highlighting of active orbiting items
+    // 4. Sequential Reveal of Panels and Highlighting of active orbiting items
     APROVECHABLES.forEach((mat, idx) => {
       const startTime = idx; // Each step takes 1 unit of duration
       
-      // Panel Fade In
-      tl.to(`#panel-${idx}`, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        pointerEvents: 'auto',
-        duration: 0.4,
-        ease: 'power2.out',
-      }, startTime + 0.1);
+      // If it's NOT the first item, animate its entrance (since item 0 starts active)
+      if (idx > 0) {
+        // Header Fade In
+        tl.to(`#header-${idx}`, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          pointerEvents: 'auto',
+          duration: 0.4,
+          ease: 'power2.out',
+        }, startTime + 0.1);
 
-      // Icon Active state (scale and border color change)
-      tl.to(`#orbit-icon-${idx}`, {
-        scale: 1.3,
-        borderColor: mat.color,
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
-        boxShadow: `0 0 25px ${mat.color}80`,
-        duration: 0.4,
-      }, startTime + 0.1);
+        // Details Card Fade In
+        tl.to(`#details-${idx}`, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          pointerEvents: 'auto',
+          duration: 0.4,
+          ease: 'power2.out',
+        }, startTime + 0.1);
 
-      // Panel & Icon Fade Out (if not the last item)
+        // Icon Active state (scale and glow)
+        tl.to(`#orbit-icon-${idx}`, {
+          scale: 1.3,
+          borderColor: mat.color,
+          backgroundColor: 'rgba(255, 255, 255, 0.2)',
+          boxShadow: `0 0 25px ${mat.color}80`,
+          duration: 0.4,
+        }, startTime + 0.1);
+      }
+
+      // Animate the exit (for all items EXCEPT the last one)
       if (idx < APROVECHABLES.length - 1) {
-        tl.to(`#panel-${idx}`, {
+        tl.to(`#header-${idx}`, {
           opacity: 0,
-          y: -30,
+          y: -20,
+          scale: 0.95,
+          pointerEvents: 'none',
+          duration: 0.4,
+          ease: 'power2.in',
+        }, startTime + 0.7);
+
+        tl.to(`#details-${idx}`, {
+          opacity: 0,
+          y: -20,
           scale: 0.95,
           pointerEvents: 'none',
           duration: 0.4,
@@ -126,10 +158,10 @@ const Inicio = () => {
 
   }, { scope: containerRef, dependencies: [isMobile, reducedMotion] });
 
-  // Calculate circular layout positions for orbit icons (radius 180px)
+  // Calculate circular layout positions for orbit icons (radius 160px)
   const getOrbitPosition = (index, total) => {
     const angle = (index * 2 * Math.PI) / total - Math.PI / 2; // Start from top (-90 degrees)
-    const radius = 180; // px
+    const radius = 160; // px
     const x = Math.cos(angle) * radius;
     const y = Math.sin(angle) * radius;
     return { x, y };
@@ -169,7 +201,6 @@ const Inicio = () => {
            HERO SECTION
          ========================================== */}
       <section className="relative min-h-screen bg-secondary-dark flex items-center pt-24 pb-16 overflow-hidden z-10">
-        {/* Background Gradients */}
         <div 
           className="absolute inset-0 z-0 pointer-events-none" 
           style={{ background: 'radial-gradient(circle at 75% 50%, rgba(96, 223, 120, 0.08) 0%, rgba(6, 26, 18, 1) 60%)' }} 
@@ -234,18 +265,14 @@ const Inicio = () => {
         </div>
       </section>
 
-      {/* ==========================================
-           WAVE TRANSITION HERO -> MARQUEE
-         ========================================== */}
+      {/* WAVE TRANSITION HERO -> MARQUEE */}
       <div className="section-wave bg-secondary-dark text-primary">
         <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
           <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="currentColor"/>
         </svg>
       </div>
 
-      {/* ==========================================
-           MARQUEE BAR
-         ========================================== */}
+      {/* MARQUEE BAR */}
       <div className="bg-primary py-4 overflow-hidden relative z-10 shadow-md">
         <div className="flex whitespace-nowrap animate-marquee text-secondary-dark font-bold text-base md:text-lg">
           {[...Array(4)].map((_, i) => (
@@ -267,7 +294,7 @@ const Inicio = () => {
       </div>
 
       {/* ==========================================
-           STICKY INTERACTION SECTION (GSAP Reveal)
+           STICKY INTERACTION SECTION (GSAP Centered Reveal)
          ========================================== */}
       <section 
         ref={containerRef} 
@@ -287,7 +314,7 @@ const Inicio = () => {
               </div>
               <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">¿Qué podemos reciclar?</h2>
               <p className="text-white/60 text-sm md:text-base">
-                Conoce los 9 grupos de materiales que la ruta selectiva de ReciTunja aprovecha diariamente. Haz clic en cada uno para conocer los detalles.
+                Conoce los 9 grupos de materiales que la ruta selectiva de ReciTunja aprovecha diariamente.
               </p>
             </div>
 
@@ -317,115 +344,118 @@ const Inicio = () => {
           </div>
         ) : (
           /* ──────────────────────────────────────────
-             DESKTOP EXPERT GSAP PINNED INTERACTION
+             DESKTOP PINNED SYMMETRICAL INTERACTION (Orbit centered, Header top, Card bottom)
              ────────────────────────────────────────── */
-          <div ref={stickyRef} className="w-full h-screen flex items-center justify-center overflow-hidden bg-secondary-dark relative">
+          <div 
+            ref={stickyRef} 
+            className="w-full h-screen bg-secondary-dark relative flex flex-col justify-between items-center py-20 px-8"
+          >
             {/* Visual background lights */}
-            <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full filter blur-[120px] pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full filter blur-[120px] pointer-events-none" />
             
-            <div className="max-w-[1200px] mx-auto px-8 w-full grid lg:grid-cols-12 gap-8 items-center relative z-10">
-              
-              {/* LEFT COLUMN: Information Panels (5 Cols) */}
-              <div className="lg:col-span-5 relative h-[500px] flex items-center">
-                {APROVECHABLES.map((mat, idx) => (
-                  <div
-                    key={mat.id}
-                    id={`panel-${idx}`}
-                    className="absolute inset-0 flex flex-col justify-center opacity-0 scale-95 pointer-events-none translate-y-8"
+            {/* TOP HEADER CONTAINER */}
+            <div className="relative w-full max-w-[800px] h-[100px] flex items-center justify-center z-20 pointer-events-none">
+              {APROVECHABLES.map((mat, idx) => (
+                <div
+                  key={mat.id}
+                  id={`header-${idx}`}
+                  className="absolute inset-0 flex flex-col items-center justify-center opacity-0 scale-95 pointer-events-none translate-y-4"
+                >
+                  <div 
+                    className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase mb-2" 
+                    style={{ backgroundColor: `${mat.color}20`, color: mat.color }}
                   >
-                    <div 
-                      className="glass p-10 rounded-3xl border-l-[6px] shadow-2xl relative transition-all duration-500 hover:shadow-[0_0_40px_rgba(96,223,120,0.08)]" 
-                      style={{ 
-                        borderLeftColor: mat.color,
-                        boxShadow: `0 0 35px ${mat.color}12`
-                      }}
-                    >
-                      {/* Badge category number */}
-                      <span className="absolute top-6 right-8 text-5xl font-black text-white/5 select-none">
-                        0{idx + 1}
-                      </span>
-                      
-                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase mb-4" style={{ backgroundColor: `${mat.color}20`, color: mat.color }}>
-                        <i className={`fa-solid ${mat.icon}`}></i> Grupo {idx + 1}
-                      </div>
-                      
-                      <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-4">
-                        {mat.title}
-                      </h2>
-                      
-                      <div className="text-base font-semibold text-primary mb-6 leading-relaxed">
-                        {mat.items}
-                      </div>
+                    <i className={`fa-solid ${mat.icon}`}></i> Grupo {idx + 1} de {APROVECHABLES.length}
+                  </div>
+                  <h2 className="text-2xl md:text-4xl font-extrabold text-white text-center tracking-tight leading-tight">
+                    {mat.title}
+                  </h2>
+                </div>
+              ))}
+            </div>
 
-                      <div className="text-white/70 text-xs md:text-sm leading-relaxed mb-6 bg-black/25 p-4 rounded-xl border border-white/5 italic">
-                        <strong>Consejo Verdecito:</strong> {mat.details}
-                      </div>
+            {/* CENTER ORBIT CONTAINER */}
+            <div className="flex-grow flex items-center justify-center relative w-full z-10 py-4">
+              <div className="w-[420px] h-[420px] relative flex items-center justify-center">
+                
+                {/* Orbit dashed ring */}
+                <div className="absolute w-[320px] h-[320px] rounded-full border border-white/5 border-dashed pointer-events-none" />
+                
+                {/* Center logo - circular brand */}
+                <div className="absolute w-[140px] h-[140px] rounded-full bg-white flex items-center justify-center shadow-[0_0_50px_rgba(96,223,120,0.12)] z-20 border-4 border-primary hover:rotate-12 transition-transform duration-500 cursor-pointer">
+                  <img 
+                    src="/logo.png" 
+                    alt="ReciTunja Logo central" 
+                    className="w-[110px] h-[110px] object-cover rounded-full"
+                  />
+                </div>
 
-                      {/* Visual progress bar */}
-                      <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
-                        <div className="h-full rounded-full transition-all duration-300" style={{ width: `${(idx + 1) * 11.1}%`, backgroundColor: mat.color }} />
-                      </div>
+                {/* Rotating orbit */}
+                <div ref={orbitRef} className="absolute w-[320px] h-[320px] rounded-full flex items-center justify-center z-10">
+                  {APROVECHABLES.map((mat, idx) => {
+                    const pos = getOrbitPosition(idx, APROVECHABLES.length);
+                    const isHovered = hoveredIcon === idx;
+                    return (
+                      <button
+                        key={mat.id}
+                        id={`orbit-icon-${idx}`}
+                        ref={(el) => (iconsRef.current[idx] = el)}
+                        onClick={() => handleIconClick(idx)}
+                        onMouseEnter={() => setHoveredIcon(idx)}
+                        onMouseLeave={() => setHoveredIcon(null)}
+                        className="absolute w-[52px] h-[52px] rounded-full bg-white/5 border border-white/20 flex items-center justify-center cursor-pointer text-white transition-all duration-300 hover:scale-125 focus:outline-none"
+                        style={{
+                          transform: `translate(${pos.x}px, ${pos.y}px)`,
+                          zIndex: isHovered ? 30 : 10
+                        }}
+                      >
+                        <i className={`fa-solid ${mat.icon} text-lg`}></i>
+
+                        {/* Tooltip on Hover */}
+                        <div 
+                          className={`absolute bottom-full mb-3 px-3 py-1.5 bg-secondary-dark/95 border border-white/10 text-white text-[11px] font-bold rounded-lg whitespace-nowrap shadow-xl pointer-events-none transition-all duration-300 ${
+                            isHovered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-2 scale-90'
+                          }`}
+                          style={{ borderBottomColor: mat.color }}
+                        >
+                          {mat.shortTitle}
+                          <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-4 border-x-transparent border-t-4 border-t-secondary-dark/95" />
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+
+              </div>
+            </div>
+
+            {/* BOTTOM DETAILS CONTAINER */}
+            <div className="relative w-full max-w-[850px] h-[160px] flex items-center justify-center z-20">
+              {APROVECHABLES.map((mat, idx) => (
+                <div
+                  key={mat.id}
+                  id={`details-${idx}`}
+                  className="absolute inset-0 flex items-center justify-center opacity-0 scale-95 pointer-events-none translate-y-4 px-4"
+                >
+                  <div 
+                    className="w-full bg-white/[0.02] backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-2xl relative grid md:grid-cols-12 gap-6 items-center"
+                    style={{ 
+                      boxShadow: `0 0 35px ${mat.color}10`,
+                      borderLeft: `4px solid ${mat.color}`
+                    }}
+                  >
+                    <div className="md:col-span-7">
+                      <h4 className="text-[10px] uppercase tracking-wider text-white/40 mb-1">Materiales Incluidos</h4>
+                      <p className="text-sm md:text-base font-medium text-primary leading-relaxed">{mat.items}</p>
+                    </div>
+                    <div className="md:col-span-5 bg-black/25 p-4 rounded-xl border border-white/5 text-xs md:text-sm text-white/70 leading-relaxed italic">
+                      <strong>Consejo:</strong> {mat.details}
                     </div>
                   </div>
-                ))}
-              </div>
-
-              {/* RIGHT COLUMN: Orbiting Materials Gallery (7 Cols) */}
-              <div className="lg:col-span-7 flex justify-center items-center">
-                <div className="w-[480px] h-[480px] relative flex items-center justify-center">
-                  
-                  {/* Orbiting dashed ring */}
-                  <div className="absolute w-[360px] h-[360px] rounded-full border border-white/5 border-dashed pointer-events-none" />
-                  
-                  {/* CenterBrand - Circular Logo with Interactive Hover */}
-                  <div className="absolute w-[150px] h-[150px] rounded-full bg-white flex items-center justify-center shadow-[0_0_50px_rgba(96,223,120,0.15)] z-20 border-4 border-primary hover:rotate-12 transition-transform duration-500 cursor-pointer">
-                    <img 
-                      src="/logo.png" 
-                      alt="ReciTunja Logo central" 
-                      className="w-[120px] h-[120px] object-cover rounded-full"
-                    />
-                  </div>
-
-                  {/* Circular Rotated Container (animated by GSAP) */}
-                  <div ref={orbitRef} className="absolute w-[360px] h-[360px] rounded-full flex items-center justify-center z-10">
-                    {APROVECHABLES.map((mat, idx) => {
-                      const pos = getOrbitPosition(idx, APROVECHABLES.length);
-                      const isHovered = hoveredIcon === idx;
-                      return (
-                        <button
-                          key={mat.id}
-                          id={`orbit-icon-${idx}`}
-                          ref={(el) => (iconsRef.current[idx] = el)}
-                          onClick={() => handleIconClick(idx)}
-                          onMouseEnter={() => setHoveredIcon(idx)}
-                          onMouseLeave={() => setHoveredIcon(null)}
-                          className="absolute w-[56px] h-[56px] rounded-full bg-white/5 border border-white/20 flex items-center justify-center cursor-pointer text-white transition-all duration-300 hover:scale-125 focus:outline-none"
-                          style={{
-                            transform: `translate(${pos.x}px, ${pos.y}px)`,
-                            zIndex: isHovered ? 30 : 10
-                          }}
-                        >
-                          <i className={`fa-solid ${mat.icon} text-lg`}></i>
-
-                          {/* Tooltip on Hover */}
-                          <div 
-                            className={`absolute bottom-full mb-3 px-3 py-1.5 bg-secondary-dark/95 border border-white/10 text-white text-[11px] font-bold rounded-lg whitespace-nowrap shadow-xl pointer-events-none transition-all duration-300 ${
-                              isHovered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-2 scale-90'
-                            }`}
-                            style={{ borderBottomColor: mat.color }}
-                          >
-                            {mat.shortTitle}
-                            <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-4 border-x-transparent border-t-4 border-t-secondary-dark/95" />
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
-
                 </div>
-              </div>
-
+              ))}
             </div>
+
           </div>
         )}
       </section>
