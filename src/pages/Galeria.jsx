@@ -111,8 +111,8 @@ const Galeria = () => {
               
               {/* Pagination and Buttons elements */}
               <div className="swiper-pagination !bottom-2"></div>
-              <div className="swiper-button-prev !text-primary !w-8 !h-8 after:!text-lg bg-white/10 backdrop-blur-sm rounded-full hidden md:flex hover:bg-white/20 transition-all"></div>
-              <div className="swiper-button-next !text-primary !w-8 !h-8 after:!text-lg bg-white/10 backdrop-blur-sm rounded-full hidden md:flex hover:bg-white/20 transition-all"></div>
+              <div className="swiper-button-prev !text-black !w-10 !h-10 after:!text-xl bg-white rounded-full hidden md:flex hover:scale-110 transition-all shadow-md border border-gray-200"></div>
+              <div className="swiper-button-next !text-black !w-10 !h-10 after:!text-xl bg-white rounded-full hidden md:flex hover:scale-110 transition-all shadow-md border border-gray-200"></div>
             </Swiper>
           </div>
 

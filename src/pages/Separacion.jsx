@@ -40,42 +40,20 @@ const Separacion = () => {
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Sí recibimos */}
-            <div className="bg-white border border-emerald-100 rounded-3xl p-8 shadow-sm flex flex-col justify-between">
-              <div>
-                <h3 className="text-xl font-bold text-emerald-800 flex items-center gap-3 mb-6 pb-4 border-b border-gray-100">
-                  <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm"><i className="fa-solid fa-check"></i></span>
-                  Sí recibimos
-                </h3>
-                <ul className="flex flex-col gap-4">
-                  {APROVECHABLES.map((mat) => (
-                    <li key={mat.id} className="flex items-start gap-3 text-sm text-gray-700 leading-relaxed font-semibold">
-                      <span className="text-emerald-500 mt-1 shrink-0"><i className="fa-solid fa-square-check"></i></span>
-                      <div>
-                        <strong className="text-gray-800 font-bold">{mat.shortTitle}:</strong>
-                        <span className="ml-1 text-gray-600 font-medium">{mat.items}</span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            <img 
+              src="/si-recibimos.png" 
+              alt="Sí recibimos" 
+              className="w-full h-auto rounded-3xl shadow-sm hover:shadow-md transition-shadow duration-300" 
+            />
 
             {/* No recibimos */}
-            <div className="bg-white border border-rose-100 rounded-3xl p-8 shadow-sm flex flex-col">
-              <h3 className="text-xl font-bold text-rose-800 flex items-center gap-3 mb-6 pb-4 border-b border-gray-100">
-                <span className="w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-sm"><i className="fa-solid fa-xmark"></i></span>
-                No recibimos
-              </h3>
-              <ul className="flex flex-col gap-4">
-                {NO_APROVECHABLES.map((item) => (
-                  <li key={item.id} className="flex items-start gap-3 text-sm text-gray-600 leading-relaxed font-medium">
-                    <span className="text-rose-500 mt-1 shrink-0"><i className="fa-solid fa-circle-xmark"></i></span>
-                    <span>{item.text}</span>
-                  </li>
-                ))}
-              </ul>
-              
-              <div className="mt-12 bg-rose-50 border border-rose-100/50 p-5 rounded-2xl text-xs text-rose-800 leading-relaxed italic">
+            <div className="flex flex-col gap-6">
+              <img 
+                src="/no-recibimos.png" 
+                alt="No recibimos" 
+                className="w-full h-auto rounded-3xl shadow-sm hover:shadow-md transition-shadow duration-300" 
+              />
+              <div className="bg-rose-50 border border-rose-100/50 p-5 rounded-2xl text-sm text-rose-800 leading-relaxed italic">
                 <strong>Importante:</strong> Los residuos no aprovechables deben depositarse en el servicio de aseo ordinario de la ciudad de Tunja (Bolsa Negra) para su disposición final en relleno sanitario. No los mezcles con el reciclaje.
               </div>
             </div>

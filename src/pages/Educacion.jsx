@@ -80,19 +80,12 @@ const Educacion = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {tips.map((tip, idx) => (
-              <div 
-                key={idx} 
-                className="bg-white p-6 rounded-2xl border border-gray-200/50 shadow-sm flex items-start gap-4 hover:shadow-md hover:border-primary/20 transition-all duration-300"
-              >
-                <span className="text-4xl p-2 bg-cream rounded-xl shrink-0 mt-1">{tip.emoji}</span>
-                <div>
-                  <h3 className="text-lg font-bold text-secondary-dark mb-2">{tip.title}</h3>
-                  <p className="text-gray-600 text-xs md:text-sm leading-relaxed">{tip.desc}</p>
-                </div>
-              </div>
-            ))}
+          <div className="max-w-3xl mx-auto">
+            <img 
+              src="/volante-caracterizacion.jpg" 
+              alt="Volante de Caracterización - Cómo reciclar correctamente" 
+              className="w-full h-auto rounded-3xl shadow-sm hover:shadow-md transition-shadow duration-300"
+            />
           </div>
 
           <div className="text-center mt-16">
