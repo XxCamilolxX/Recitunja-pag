@@ -4,17 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Galería | ReciTunja</title>
-  <meta name="description" content="Galería fotográfica de ReciTunja - Momentos de nuestra labor de reciclaje en Tunja.">
+  <meta name="description" content="Galería fotográfica de ReciTunja - Momentos de nuestra labor de reciclaje en Tunja, Colombia.">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <header class="header">
+  <!-- ══════════════════════════════════════════
+       HEADER
+  ══════════════════════════════════════════ -->
+  <header class="header" id="main-header">
     <div class="container">
       <a href="INICIO.html" class="logo"><img src="logo.png" alt="ReciTunja"></a>
-      <nav class="nav-links">
+      <nav class="nav-links" id="nav-links">
         <a href="INICIO.html">Inicio</a>
         <a href="LA EMPRESA.HTML">La empresa</a>
         <a href="GALERIA.HTML" class="active">Galería</a>
@@ -24,22 +27,41 @@
         <a href="PQRS.HTML">PQRS</a>
       </nav>
       <a href="COMUNICATE CON NOSOTROS.HTML" class="btn btn-primary">Contáctanos <i class="fa-solid fa-arrow-right" style="margin-left:8px;"></i></a>
-      <button class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+      <button class="mobile-toggle" onclick="document.getElementById('nav-links').classList.toggle('show')" aria-label="Abrir menú"><i class="fa-solid fa-bars"></i></button>
     </div>
   </header>
 
+  <!-- ══════════════════════════════════════════
+       PAGE HERO
+  ══════════════════════════════════════════ -->
   <section class="page-hero">
     <h1>Galería</h1>
-    <p>Momentos que capturan nuestra pasión por el reciclaje y la transformación ambiental.</p>
+    <p>Momentos que capturan nuestra pasión por el reciclaje y la transformación ambiental en Tunja.</p>
   </section>
 
+  <!-- ── Ola hero → galería ── -->
+  <div class="section-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,30 C360,0 1080,60 1440,30 L1440,60 L0,60 Z" fill="var(--bg-cream)"/>
+    </svg>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       CARRUSEL SWIPER — Efecto Coverflow
+  ══════════════════════════════════════════ -->
   <section class="gallery-section">
     <div class="container">
-      <div class="swiper gallery-swiper">
+      <div class="section-heading text-center max-w-800" style="margin-bottom:2.5rem;">
+        <div class="subtitle" style="justify-content:center;">Nuestro Trabajo</div>
+        <h2>Momentos en imágenes</h2>
+        <p style="color:var(--text-muted);">Cada fotografía es el testimonio del compromiso de nuestro equipo con el reciclaje y el medio ambiente.</p>
+      </div>
+
+      <div class="swiper gallery-swiper" id="gallery-swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <img src="_MG_6829_2.jpg" alt="Equipo Recitunja">
-            <div class="slide-overlay">Equipo Recitunja</div>
+            <div class="slide-overlay">Equipo ReciTunja</div>
           </div>
           <div class="swiper-slide">
             <img src="_MG_6831_1.jpg" alt="Actividades de reciclaje">
@@ -59,11 +81,11 @@
           </div>
           <div class="swiper-slide">
             <img src="_MG_6892_1.jpg" alt="Rutas selectivas Recitunja">
-            <div class="slide-overlay">Rutas selectivas Recitunja</div>
+            <div class="slide-overlay">Rutas selectivas ReciTunja</div>
           </div>
           <div class="swiper-slide">
             <img src="_MG_6921_1 Modificado.jpg" alt="Equipo completo Recitunja">
-            <div class="slide-overlay">Equipo completo Recitunja</div>
+            <div class="slide-overlay">Equipo completo ReciTunja</div>
           </div>
         </div>
         <div class="swiper-pagination"></div>
@@ -73,6 +95,16 @@
     </div>
   </section>
 
+  <!-- ── Ola galería → footer ── -->
+  <div class="section-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="var(--secondary-color)"/>
+    </svg>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
@@ -98,16 +130,18 @@
     </div>
   </footer>
 
-  <a href="https://wa.me/3123365396?text=Hola Asesor En Linea escribo desde la pagina web de Recitunja, necesito asesoria" class="whatsapp-widget" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a>
+  <!-- WhatsApp Widget -->
+  <a href="https://wa.me/3123365396?text=Hola Asesor En Linea escribo desde la pagina web de Recitunja, necesito asesoria"
+     class="whatsapp-widget" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
 
   <script src="main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
-    /* El DOM ya está listo aquí (scripts al final del body),
-       llamar Swiper directamente evita el delay del DOMContentLoaded */
-    new Swiper('.gallery-swiper', {
+    new Swiper('#gallery-swiper', {
       slidesPerView: 1,
-      spaceBetween: 20,
+      spaceBetween: 24,
       loop: true,
       centeredSlides: true,
       effect: 'coverflow',
@@ -120,7 +154,8 @@
       },
       autoplay: {
         delay: 3000,
-        disableOnInteraction: false
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true
       },
       pagination: {
         el: '.swiper-pagination',

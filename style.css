@@ -1,23 +1,94 @@
 /* ============================================
-   RECITUNJA - Design System & Styles
+   RECITUNJA - Design System "Ecological Circularity" by Stitch
    ============================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  --primary-color: #2eb453;
-  --primary-dark: #228b3f;
+  /* ── Stitch "Ecological Circularity" ── */
+  /* Superficies */
+  --surface:            #131313;
+  --surface-bright:     #393939;
+  --surface-low:        #1c1b1b;
+  --surface-high:       #2a2a2a;
+  --surface-highest:    #353535;
+  --on-surface:         #e5e2e1;
+  --on-surface-variant: #bdcab9;
+  --background:         #131313;
+
+  /* Marca */
+  --primary:            #60df78;
+  --primary-container:  #2eb453;
+  --on-primary:         #003912;
+  --inverse-primary:    #006e2a;
+
+  /* Secundario / terciario */
+  --secondary:          #b5ccbf;
+  --tertiary:           #c8c6c1;
+  --outline:            #879485;
+  --outline-variant:    #3e4a3d;
+
+  /* Materiales reciclables */
+  --color-carton:   #C8A165;
+  --color-plastico: #4CAEE3;
+  --color-vidrio:   #7DC98F;
+  --color-metal:    #A0A0A0;
+  --color-papel:    #F5D76E;
+
+  /* Error / éxito */
+  --error:   #ffb4ab;
+  --success: #60df78;
+
+  /* Tipografía */
+  --font: 'Inter', sans-serif;
+
+  /* Espaciado */
+  --section-desktop: 112px;
+  --section-mobile:  80px;
+  --gutter:          32px;
+  --container-max:   1200px;
+  --content-max:     760px;
+
+  /* Bordes */
+  --radius-sm:   0.25rem;
+  --radius-md:   0.75rem;
+  --radius-lg:   1rem;
+  --radius-xl:   1.5rem;
+  --radius-full: 9999px;
+
+  /* Órbita hero */
+  --stage-size:    300px;
+  --orbit-radius:  120px;
+  --circle-size:   52px;
+  --dur-carton:    14s;
+  --dur-plastico:  10s;
+  --dur-vidrio:    12s;
+  --dur-metal:     8s;
+  --dur-papel:     6s;
+
+  /* ── Variables legacy (compatibilidad) ── */
+  --primary-color:   #2eb453;
+  --primary-dark:    #228b3f;
   --secondary-color: #061a12;
-  --bg-cream: #fdfaf4;
-  --text-dark: #1a1a1a;
-  --text-muted: #6b7280;
-  --white: #ffffff;
-  --border-light: #e5e7eb;
-  --transition: all 0.3s ease;
-  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  --border-radius: 12px;
+  --bg-cream:        #f5f0eb;
+  --text-dark:       #1a1a1a;
+  --text-muted:      #6b7280;
+  --white:           #ffffff;
+  --border-light:    #e5e7eb;
+  --transition:      all 0.3s ease;
+  --shadow-sm:       0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  --shadow-md:       0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  --shadow-lg:       0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --border-radius:   12px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --stage-size:      220px;
+    --orbit-radius:    85px;
+    --circle-size:     40px;
+    --section-desktop: var(--section-mobile);
+  }
 }
 
 /* --- Reset & Base --- */
@@ -128,7 +199,7 @@ h1, h2, h3, h4, h5, h6 { font-weight: 700; line-height: 1.2; }
   transition: var(--transition);
 }
 .header .container { display: flex; justify-content: space-between; align-items: center; }
-.logo img { height: 45px; object-fit: contain; }
+.logo img { height: 45px; width: 45px; object-fit: cover; border-radius: 50%; display: block; }
 .nav-links { display: flex; gap: 2rem; }
 .nav-links a {
   color: var(--white);
@@ -1154,4 +1225,744 @@ section, .card, .stat-item, .education-card, .waste-col {
   .section-heading h2 {
     font-size: 2rem;
   }
+}
+
+/* =============================================
+   DESIGN SYSTEM "ECOLOGICAL CIRCULARITY"
+   Stitch · ReciTunja
+   ============================================= */
+
+/* ── Header glassmorphism ── */
+#main-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(19, 19, 19, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--outline-variant);
+  transition: background 0.35s ease;
+}
+#main-header.scrolled {
+  background: rgba(19, 19, 19, 0.96);
+}
+
+/* ── Section label ── */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+.section-label::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--primary);
+}
+
+/* ── Hero Ecological ── */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+#hero .hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('hero-recitunja.jpg');
+  background-size: cover;
+  background-position: center;
+  animation: kenBurns 10s ease-out infinite alternate;
+  z-index: 0;
+}
+#hero .hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.52);
+  z-index: 1;
+}
+#hero .hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+}
+@keyframes kenBurns {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1); }
+}
+
+/* ── Logo stage ── */
+.hero-logo-stage {
+  position: relative;
+  width: var(--stage-size);
+  height: var(--stage-size);
+  margin: 0 auto 2rem;
+}
+.hero-logo-stage > img {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 130px;
+  transform: translate(-50%, -50%) scale(0.5);
+  opacity: 0;
+  filter: drop-shadow(0 16px 30px rgba(0, 0, 0, .45));
+  z-index: 2;
+  animation: logoIn 0.8s ease-out 0.3s forwards,
+             logoBreath 3.5s ease-in-out 1.2s infinite;
+}
+@keyframes logoIn {
+  to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+@keyframes logoBreath {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50%       { transform: translate(-50%, -50%) scale(1.04); }
+}
+
+/* ── Orbit items ── */
+.orbit-item {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: var(--circle-size);
+  height: var(--circle-size);
+  border-radius: var(--radius-full);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transform-origin: 0 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  animation: orbit var(--dur, 10s) linear infinite,
+             orbitIn 0.5s ease-out var(--delay, 1s) forwards;
+}
+.orbit-item strong { line-height: 1; }
+.orbit-item span {
+  font-size: 8px;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin-top: 2px;
+  text-transform: uppercase;
+  text-shadow: 0 1px 2px rgba(0,0,0,.5);
+}
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(var(--orbit-radius)) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg); }
+}
+@keyframes orbitIn {
+  to { opacity: 1; }
+}
+
+/* ── Scroll Reveal ── */
+@media (prefers-reduced-motion: no-preference) {
+  section,
+  .card,
+  .stat-item,
+  .education-card,
+  .waste-col,
+  .service-item,
+  .value-card,
+  .service-card,
+  .info-card,
+  .doc-item {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
+                transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  /* Hero V2 is always visible — exempt from reveal */
+  section.hero-v2 {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .visible {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .waste-col.yes  { transform: translateX(-50px); }
+  .waste-col.no   { transform: translateX(50px); }
+  .education-card { transform: translateX(-40px); }
+}
+
+/* ── Section waves ── */
+.section-wave {
+  line-height: 0;
+  overflow: hidden;
+  margin: -1px 0;
+}
+.section-wave svg {
+  display: block;
+  width: 100%;
+  height: 60px;
+}
+.section-wave.wave-flip svg { transform: scaleX(-1); }
+
+/* ── Cards hover lift ── */
+.card,
+.value-card,
+.service-card,
+.education-card,
+.info-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.card:hover,
+.value-card:hover,
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.12);
+  border-color: var(--primary);
+}
+.card-premium {
+  border-top: 4px solid;
+  border-image: linear-gradient(90deg, var(--primary), var(--inverse-primary)) 1;
+}
+
+/* ── Pill buttons (Stitch palette) ── */
+.btn-primary {
+  background: var(--primary);
+  color: var(--on-primary);
+  border-radius: var(--radius-full);
+  padding: 14px 32px;
+  font-weight: 600;
+}
+.btn-primary:hover {
+  background: var(--primary-container);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(96, 223, 120, 0.30);
+}
+.btn-ghost {
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  border-radius: var(--radius-full);
+  padding: 14px 32px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-ghost:hover {
+  background: #fff;
+  color: var(--surface);
+}
+.btn-ghost-green {
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  border-radius: var(--radius-full);
+  padding: 14px 32px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-ghost-green:hover {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+/* ── WhatsApp pulse ── */
+.whatsapp-widget {
+  position: fixed;
+  bottom: 28px; right: 28px;
+  width: 60px; height: 60px;
+  background: #25D366;
+  border-radius: var(--radius-full);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  color: #fff;
+  z-index: 999;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+}
+.whatsapp-widget::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-full);
+  background: rgba(37, 211, 102, 0.35);
+  animation: waPulse 2s ease-out infinite;
+}
+@keyframes waPulse {
+  0%   { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(1.85); opacity: 0; }
+}
+
+
+/* ============================================================
+   NAVBAR V2 — Dark green #1B3A2D
+   ============================================================ */
+.navbar-v2 {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: #1B3A2D;
+  border-bottom: 1px solid rgba(76, 175, 80, 0.18);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.navbar-v2.scrolled {
+  background: #132b21;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+}
+
+.navbar-v2__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+/* Brand / Logo */
+.navbar-v2__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.navbar-v2__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; height: 36px;
+  background: rgba(76, 175, 80, 0.15);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.navbar-v2__logo-text {
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+.navbar-v2__logo-reci  { color: #ffffff; }
+.navbar-v2__logo-tunja { color: #4CAF50; }
+
+/* Center navigation */
+.navbar-v2__nav {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex: 1;
+  justify-content: center;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+.navbar-v2__link {
+  color: rgba(255,255,255,0.82);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  padding: 4px 2px;
+  white-space: nowrap;
+  position: relative;
+  transition: color 0.2s;
+}
+.navbar-v2__link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1.5px;
+  background: #4CAF50;
+  transition: width 0.25s ease;
+}
+.navbar-v2__link:hover,
+.navbar-v2__link.active {
+  color: #ffffff;
+}
+.navbar-v2__link:hover::after,
+.navbar-v2__link.active::after {
+  width: 100%;
+}
+.navbar-v2__dot {
+  color: rgba(76, 175, 80, 0.65);
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0 5px;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+/* CTA pill button */
+.navbar-v2__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  background: #4CAF50;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.navbar-v2__cta:hover {
+  background: #3d9640;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.45);
+}
+
+/* Hamburger */
+.navbar-v2__burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  flex-shrink: 0;
+}
+.navbar-v2__burger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.navbar-v2__burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.navbar-v2__burger.open span:nth-child(2) { opacity: 0; }
+.navbar-v2__burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+
+/* ============================================================
+   HERO V2 — Two-column dark + carousel
+   Paleta original: fondo #061a12, texto blanco, verde #2eb453
+   ============================================================ */
+.hero-v2 {
+  min-height: 100vh;
+  background-color: var(--secondary-color); /* #061a12 */
+  background-image:
+    radial-gradient(circle at 65% 50%, rgba(46,180,83,0.10) 0%, transparent 60%),
+    url('hero-recitunja.jpg');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+  display: flex;
+  align-items: stretch;
+  padding-top: 80px; /* header height */
+  overflow: hidden;
+  position: relative;
+}
+/* Dark overlay like the old hero */
+.hero-v2::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 26, 18, 0.72);
+  z-index: 0;
+}
+.hero-v2__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  gap: 2rem;
+  min-height: calc(100vh - 80px);
+}
+
+/* ── Left column: text ── */
+.hero-v2__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 4rem 0;
+  justify-self: start;
+}
+
+.hero-v2__heading {
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+/* Paleta original: RECI blanco, TUNJA verde */
+.hero-v2__heading--reci  { color: #ffffff; }
+.hero-v2__heading--tunja { color: var(--primary-color); /* #2eb453 */ }
+
+.hero-v2__subtitle {
+  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+  font-weight: 700;
+  font-style: italic;
+  color: rgba(255,255,255,0.92);
+  margin-bottom: 1.25rem;
+  line-height: 1.3;
+}
+
+.hero-v2__body {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.75;
+  max-width: 500px;
+  margin-bottom: 1.75rem;
+}
+
+/* Stat line */
+.hero-v2__stat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.hero-v2__stat-number {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--primary-color);
+}
+.hero-v2__stat-leaf {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+.hero-v2__stat-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  font-style: italic;
+}
+
+/* Action buttons — uses existing .btn .btn-primary .btn-ghost */
+.hero-v2__actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* ── Right column: carousel wrap ── */
+.hero-v2__carousel-wrap {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100%;
+  min-height: 240px;
+  align-self: stretch;
+}
+
+/* Arrow buttons — dark theme */
+.hero-v2__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  color: #ffffff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+  backdrop-filter: blur(6px);
+}
+.hero-v2__arrow:hover {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #ffffff;
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 6px 20px rgba(46,180,83,0.4);
+}
+.hero-v2__arrow--left  { left: -22px; }
+.hero-v2__arrow--right { right: -22px; }
+
+/* Stage: the clipping container */
+.hero-v2__stage {
+  position: relative;
+  width: 420px;
+  height: 210px;      /* HALF of the circle diameter — shows only the top arc */
+  overflow: hidden;   /* clips the bottom half of the circle */
+  flex-shrink: 0;
+  align-self: flex-end;
+  margin-bottom: 0;
+}
+
+/* Beige half-circle — the full circle is 420×420px, stage clips bottom half */
+.hero-v2__halfcircle {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;         /* 420px wide */
+  height: 200%;        /* 420px tall — full circle, bottom half clipped */
+  background: rgba(46, 180, 83, 0.08);
+  border: 1px solid rgba(46, 180, 83, 0.18);
+  border-radius: 50%;
+  z-index: 0;
+  backdrop-filter: blur(2px);
+}
+
+/* Dashed orbit ring — full ring centered at the bottom-mid of the stage */
+.hero-v2__orbit-ring {
+  position: absolute;
+  bottom: 0; left: 50%;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(96, 223, 120, 0.35);
+  transform: translate(-50%, 50%);  /* center at stage bottom edge = circle center */
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Central logo circle — centered at stage bottom edge */
+.hero-v2__logo-circle {
+  position: absolute;
+  bottom: 0; left: 50%;
+  width: 150px; height: 150px;
+  background: #ffffff;
+  border-radius: 50%;
+  transform: translate(-50%, 50%);  /* center at stage bottom edge */
+  box-shadow: 0 8px 40px rgba(27,58,45,0.18), 0 2px 8px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+.hero-v2__recycle-svg {
+  width: 95px; height: 95px;
+}
+
+/* Orbit icons container — absolutely positioned, same coordinate system as stage */
+.hero-v2__orbit-icons {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Each icon bubble — dark theme: translucent dark surface */
+.hero-v2__orbit-icon {
+  position: absolute;
+  width: 64px; height: 64px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 50%;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35), 0 1px 4px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: var(--primary-color);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.hero-v2__orbit-icon i {
+  font-size: 1.25rem;
+  color: var(--primary-color);
+  line-height: 1;
+}
+.hero-v2__orbit-icon span {
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--secondary-color);
+}
+
+
+/* ============================================================
+   RESPONSIVE — Navbar V2 + Hero V2
+   ============================================================ */
+
+/* Tablet: collapse nav links */
+@media (max-width: 1100px) {
+  /* navbar-v2 responsive (conservado si se vuelve a usar) */
+  .navbar-v2__nav { display: none; }
+  .navbar-v2__burger { display: flex; }
+  .navbar-v2__nav.open {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: absolute;
+    top: 64px; left: 0; right: 0;
+    background: #1B3A2D;
+    padding: 1rem 2rem 1.5rem;
+    border-bottom: 1px solid rgba(76,175,80,0.2);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    z-index: 999;
+  }
+  .navbar-v2__nav.open .navbar-v2__dot { display: none; }
+  .navbar-v2__nav.open .navbar-v2__link {
+    font-size: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .navbar-v2__nav.open .navbar-v2__link:last-of-type { border-bottom: none; }
+}
+
+/* Hero: stack columns on tablet */
+@media (max-width: 900px) {
+  .hero-v2__inner {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0 1.5rem 2rem;
+  }
+  .hero-v2__text {
+    padding: 2.5rem 0 1.5rem;
+    align-items: center;
+    text-align: center;
+    justify-self: center;
+  }
+  .hero-v2__body { margin-left: auto; margin-right: auto; }
+  .hero-v2__stat { justify-content: center; }
+  .hero-v2__actions { justify-content: center; }
+
+  .hero-v2__carousel-wrap {
+    min-height: 200px;
+    height: 220px;
+  }
+  .hero-v2__stage {
+    width: 300px;
+    height: 150px;
+  }
+  .hero-v2__orbit-ring {
+    width: 230px; height: 230px;
+  }
+  .hero-v2__logo-circle { width: 120px; height: 120px; }
+  .hero-v2__recycle-svg { width: 78px; height: 78px; }
+  .hero-v2__arrow--left  { left: 4px; }
+  .hero-v2__arrow--right { right: 4px; }
+}
+
+@media (max-width: 480px) {
+  .hero-v2__heading { font-size: 2.8rem; }
+  .hero-v2__subtitle { font-size: 1.05rem; }
+  .hero-v2__stage { width: 260px; height: 130px; }
+  .hero-v2__orbit-ring { width: 200px; height: 200px; }
+  .hero-v2__logo-circle { width: 100px; height: 100px; }
+  .hero-v2__recycle-svg { width: 66px; height: 66px; }
+  .hero-v2__orbit-icon { width: 52px; height: 52px; }
 }

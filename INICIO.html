@@ -4,12 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ReciTunja | Porque el medio ambiente eres Tú</title>
-  <meta name="description" content="ReciTunja - Organización dedicada al aprovechamiento de residuos sólidos en Tunja, Colombia.">
+  <meta name="description" content="ReciTunja - Organización dedicada al aprovechamiento de residuos sólidos en Tunja, Colombia. Reciclaje sustentable, economía circular e inclusión social.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+  <!-- ══════════════════════════════════════════
+       HEADER — glassmorphism original
+  ══════════════════════════════════════════ -->
   <header class="header" id="main-header">
     <div class="container">
       <a href="INICIO.html" class="logo"><img src="logo.png" alt="ReciTunja"></a>
@@ -22,28 +28,237 @@
         <a href="DOCUMENTOS LEGALES.HTML">Documentos legales</a>
         <a href="PQRS.HTML">PQRS</a>
       </nav>
-      <a href="COMUNICATE CON NOSOTROS.HTML" class="btn btn-primary">Contáctanos <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i></a>
-      <button class="mobile-toggle" onclick="document.getElementById('nav-links').classList.toggle('show')" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+      <a href="COMUNICATE CON NOSOTROS.HTML" class="btn btn-primary" id="navbar-cta">
+        Contáctanos <i class="fa-solid fa-arrow-right" style="margin-left:6px;"></i>
+      </a>
+      <button class="mobile-toggle" id="navbar-burger" aria-label="Abrir menú"
+              onclick="document.getElementById('nav-links').classList.toggle('show')">
+        <i class="fa-solid fa-bars"></i>
+      </button>
     </div>
   </header>
 
-  <section class="hero" id="hero" style="background-image: url('hero-recitunja.jpg'); background-size: cover; background-position: center;">
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-logo-stage" aria-label="Logo de ReciTunja y materiales reciclables">
-          <img src="Logo recitunja 2-20.png" alt="Logo ReciTunja" class="hero-logo-mark">
+  <!-- ══════════════════════════════════════════
+       HERO — Two-column dark + carousel
+  ══════════════════════════════════════════ -->
+  <section class="hero-v2" id="hero" aria-label="Sección principal ReciTunja">
+    <div class="hero-v2__inner">
+
+      <!-- ── LEFT: Text block ── -->
+      <div class="hero-v2__text">
+
+        <h1 class="hero-v2__heading">
+          <span class="hero-v2__heading--reci">RECI</span><span class="hero-v2__heading--tunja">TUNJA</span>
+        </h1>
+
+        <p class="hero-v2__subtitle"><em>Porque el medio ambiente eres tú</em></p>
+
+        <p class="hero-v2__body">
+          Transformamos los residuos de Tunja en nuevas oportunidades. Descubre cómo tu compromiso con el reciclaje construye un futuro más limpio y sostenible para todos. Únete a la economía circular.
+        </p>
+
+        <div class="hero-v2__stat" aria-label="Estadística: más de 500 toneladas recicladas">
+          <span class="hero-v2__stat-number">+500 ton</span>
+          <span class="hero-v2__stat-leaf" aria-hidden="true">🍃</span>
+          <span class="hero-v2__stat-label"><em>recicladas</em></span>
         </div>
-        <div class="subtitle">Medio Ambiente</div>
-        <h1>RECI<span>TUNJA</span></h1>
-        <p>Porque el medio ambiente eres tú. Fortalecemos el aprovechamiento de los residuos sólidos de una forma dinámica, operativa y eficiente.</p>
-        <div class="hero-buttons">
-          <a href="https://wa.link/ebe3ps" class="btn btn-primary">CONTÁCTANOS <i class="fa-solid fa-leaf" style="margin-left: 8px;"></i></a>
-          <a href="https://wa.link/ebe3ps" class="btn btn-outline">TRABAJA CON NOSOTROS</a>
+
+        <div class="hero-v2__actions">
+          <a href="COMUNICATE CON NOSOTROS.HTML" class="btn btn-primary" id="hero-cta-primary">
+            CONTÁCTANOS <i class="fa-solid fa-leaf" style="margin-left:6px;"></i>
+          </a>
+          <a href="LA EMPRESA.HTML" class="btn btn-ghost" id="hero-cta-secondary">
+            TRABAJA CON NOSOTROS
+          </a>
         </div>
+
       </div>
+
+      <!-- ── RIGHT: Interactive half-circle carousel ── -->
+      <div class="hero-v2__carousel-wrap" aria-label="Carrusel de materiales reciclables" style="min-height: 250px;">
+
+        <!-- Arrow left -->
+        <button class="hero-v2__arrow hero-v2__arrow--left" id="carousel-prev" aria-label="Anterior material">
+          <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+        </button>
+
+        <!-- Half-circle stage -->
+        <div class="hero-v2__stage" aria-hidden="true">
+
+          <!-- Beige half-circle background -->
+          <div class="hero-v2__halfcircle"></div>
+
+          <!-- Orbit ring (dashed) -->
+          <div class="hero-v2__orbit-ring"></div>
+
+          <!-- Central white circle with RecITunja logo -->
+          <div class="hero-v2__logo-circle">
+            <svg class="hero-v2__recycle-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Logo ReciTunja">
+              <!-- Three recycling arrows -->
+              <g transform="translate(60,60)">
+                <!-- Arrow 1: top -->
+                <path d="M0,-38 L10,-22 L4,-22 L4,-10 L-4,-10 L-4,-22 L-10,-22 Z" fill="#4CAF50"/>
+                <!-- Arrow 2: bottom-right -->
+                <path d="M0,-38 L10,-22 L4,-22 L4,-10 L-4,-10 L-4,-22 L-10,-22 Z" fill="#4CAF50" transform="rotate(120)"/>
+                <!-- Arrow 3: bottom-left -->
+                <path d="M0,-38 L10,-22 L4,-22 L4,-10 L-4,-10 L-4,-22 L-10,-22 Z" fill="#4CAF50" transform="rotate(240)"/>
+                <!-- Central circle arc -->
+                <circle cx="0" cy="0" r="14" fill="none" stroke="#4CAF50" stroke-width="4"/>
+                <!-- Tiny equestrian silhouette -->
+                <ellipse cx="0" cy="-1" rx="4" ry="6" fill="#1B3A2D" opacity="0.7"/>
+                <circle cx="0" cy="-8" r="3" fill="#1B3A2D" opacity="0.7"/>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Orbit icons: 6 items (only top 3 visible through clip) -->
+          <!-- Each has a data-angle (degrees, 0=top/12-o'clock) -->
+          <div class="hero-v2__orbit-icons" id="orbit-icons">
+            <!-- position 0: top (12 o'clock) -->
+            <div class="hero-v2__orbit-icon" data-index="0">
+              <i class="fa-solid fa-box"></i>
+              <span>Cartón</span>
+            </div>
+            <!-- position 1: top-right (2 o'clock) -->
+            <div class="hero-v2__orbit-icon" data-index="1">
+              <i class="fa-solid fa-tablet-screen-button"></i>
+              <span>Electrónico</span>
+            </div>
+            <!-- position 2: bottom-right (4 o'clock) — hidden -->
+            <div class="hero-v2__orbit-icon" data-index="2">
+              <i class="fa-solid fa-bottle-water"></i>
+              <span>Plástico</span>
+            </div>
+            <!-- position 3: bottom (6 o'clock) — hidden -->
+            <div class="hero-v2__orbit-icon" data-index="3">
+              <i class="fa-solid fa-wine-glass"></i>
+              <span>Vidrio</span>
+            </div>
+            <!-- position 4: bottom-left (8 o'clock) — hidden -->
+            <div class="hero-v2__orbit-icon" data-index="4">
+              <i class="fa-solid fa-gears"></i>
+              <span>Metal</span>
+            </div>
+            <!-- position 5: top-left (10 o'clock) -->
+            <div class="hero-v2__orbit-icon" data-index="5">
+              <i class="fa-solid fa-newspaper"></i>
+              <span>Papel</span>
+            </div>
+          </div>
+
+        </div>
+        <!-- /stage -->
+
+        <!-- Arrow right -->
+        <button class="hero-v2__arrow hero-v2__arrow--right" id="carousel-next" aria-label="Siguiente material">
+          <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+        </button>
+
+      </div>
+      <!-- /carousel-wrap -->
+
     </div>
+    <!-- /inner -->
   </section>
 
+  <!-- Inline carousel JS (runs before main.js defer) -->
+  <script>
+  (function() {
+    // ── Carousel configuration ─────────────────────────
+    // 6 icons placed every 60° on a clock-face (0° = 12-o'clock = top)
+    // Visible range: -90° to +90° (left to right across top)
+    var TOTAL       = 6;
+    var STEP        = 60;          // degrees per click
+    var ORBIT_R     = 148;         // px radius (orbit ring 320px diam = 160r, icon 64px/2=32 inset)
+    var DURATION    = 600;         // ms
+    var VISIBLE_MIN = -100;        // angle range for visibility
+    var VISIBLE_MAX =  100;
+
+    // current offset angle (rotated by clicking)
+    var offset = 0;
+    var animating = false;
+
+    // Base angles: 0=top(12), 60=2-o'clock, 120=4, 180=bottom, 240=8, 300=10
+    var baseAngles = [0, 60, 120, 180, 240, 300];
+
+    function getAngle(index) {
+      return (baseAngles[index] + offset + 3600) % 360;
+    }
+
+    // Convert clock-face angle (0=top, CW) to standard math angle
+    // clock 0 → math -90, clock 90 → math 0, etc.
+    function toCartesian(clockAngle, r) {
+      var rad = (clockAngle - 90) * Math.PI / 180;
+      return { x: Math.cos(rad) * r, y: Math.sin(rad) * r };
+    }
+
+    function isVisible(clockAngle) {
+      // Normalize to -180..180
+      var a = ((clockAngle + 180) % 360) - 180;
+      return a >= VISIBLE_MIN && a <= VISIBLE_MAX;
+    }
+
+    function updateIcons(transition) {
+      var icons = document.querySelectorAll('.hero-v2__orbit-icon');
+      var stageEl = document.querySelector('.hero-v2__stage');
+      if (!stageEl || !icons.length) return;
+
+      var stageW = stageEl.offsetWidth  || 420;
+      var stageH = stageEl.offsetHeight || 210;
+      // Circle center = bottom-mid of stage
+      var cx = stageW / 2;
+      var cy = stageH; // bottom of stage = center of the full circle
+
+      icons.forEach(function(icon, i) {
+        var angle = getAngle(i);
+        var pos   = toCartesian(angle, ORBIT_R);
+        var vis   = isVisible(angle);
+
+        icon.style.transition = transition
+          ? 'transform ' + DURATION + 'ms ease-in-out, opacity ' + DURATION + 'ms ease-in-out'
+          : 'none';
+
+        // Offset so icon center lands on orbit: subtract half icon size (32px)
+        icon.style.transform = 'translate(' + (cx + pos.x - 32) + 'px, ' + (cy + pos.y - 32) + 'px)';
+        icon.style.opacity   = vis ? '1' : '0';
+        icon.style.pointerEvents = vis ? 'auto' : 'none';
+        icon.setAttribute('aria-hidden', vis ? 'false' : 'true');
+      });
+    }
+
+    function rotate(direction) {
+      if (animating) return;
+      animating = true;
+      offset = (offset + direction * STEP + 3600) % 3600;
+      updateIcons(true);
+      setTimeout(function() { animating = false; }, DURATION);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var prev = document.getElementById('carousel-prev');
+      var next = document.getElementById('carousel-next');
+      if (prev) prev.addEventListener('click', function() { rotate(-1); });
+      if (next) next.addEventListener('click', function() { rotate(1); });
+
+      // Initial placement (no transition)
+      updateIcons(false);
+
+      // Re-position on resize
+      window.addEventListener('resize', function() { updateIcons(false); });
+    });
+  })();
+  </script>
+
+  <!-- ── Ola hero → marquee ── -->
+  <div class="section-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="var(--primary-color)"/>
+    </svg>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       MARQUEE BAR
+  ══════════════════════════════════════════ -->
   <div class="marquee-wrapper">
     <div class="marquee-content">
       <span><i class="fa-solid fa-leaf"></i> Reciclaje Sustentable</span>
@@ -57,6 +272,301 @@
     </div>
   </div>
 
+  <!-- ── Ola marquee → about ── -->
+  <div class="section-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,30 C360,0 1080,60 1440,30 L1440,60 L0,60 Z" fill="var(--bg-cream)"/>
+    </svg>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       ABOUT (Misión y Visión)
+  ══════════════════════════════════════════ -->
+  <section class="about">
+    <div class="container">
+      <div class="about-images">
+        <img src="_MG_6892_1.jpg" alt="Equipo ReciTunja en acción">
+        <div class="floating-card">
+          <i class="fa-solid fa-recycle"></i>
+          <div>
+            <strong style="display:block; font-size:1.35rem;">+10 años</strong>
+            <span style="font-size:.85rem;">transformando Tunja</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-content">
+        <div class="subtitle">Nuestra Historia</div>
+        <h2>Reciclaje con propósito social</h2>
+        <div class="feature-list">
+          <div class="feature-item">
+            <div class="feature-icon"><i class="fa-solid fa-leaf"></i></div>
+            <div class="feature-text">
+              <h4>Misión</h4>
+              <p>Mejorar la calidad de vida de los recicladores de oficio mediante la gestión integral de los residuos sólidos, trabajando en equipo para dignificar esta labor.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon"><i class="fa-solid fa-eye"></i></div>
+            <div class="feature-text">
+              <h4>Visión</h4>
+              <p>Ser reconocidos como la organización líder en aprovechamiento de residuos sólidos en Boyacá, contribuyendo al desarrollo sostenible y la economía circular.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon"><i class="fa-solid fa-people-group"></i></div>
+            <div class="feature-text">
+              <h4>Quiénes somos</h4>
+              <p>Constituida el 7 de agosto de 2009 por 19 recicladores de oficio, 80% mujeres cabeza de familia. Operamos rutas selectivas, reciclaje empresarial e institucional en Tunja.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Ola about → servicios ── -->
+  <div class="section-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#fff"/>
+    </svg>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SERVICIOS (Ruta Selectiva)
+  ══════════════════════════════════════════ -->
+  <section class="services">
+    <div class="container">
+      <div class="services-header">
+        <div class="subtitle" style="justify-content:center;">Nuestros Servicios</div>
+        <h2>Ruta Selectiva ReciTunja</h2>
+        <p>Recolectamos, clasificamos y aprovechamos materiales reciclables para reducir el impacto ambiental de Tunja.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-truck"></i></div>
+          <h3>Recolección Selectiva</h3>
+          <p>Visitamos tu barrio en días y horarios fijos para recoger los materiales reciclables que depositas en la bolsa azul.</p>
+          <img src="_MG_6829_2.jpg" alt="Recolección selectiva ReciTunja" class="service-image">
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-building"></i></div>
+          <h3>Reciclaje Empresarial</h3>
+          <p>Gestionamos los residuos aprovechables de empresas e instituciones con procesos certificados y responsables.</p>
+          <img src="_MG_6848_1.jpg" alt="Reciclaje empresarial ReciTunja" class="service-image">
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <h3>Educación Ambiental</h3>
+          <p>Capacitamos a comunidades, colegios y empresas sobre la correcta separación y aprovechamiento de residuos.</p>
+          <img src="_MG_6872_1.jpg" alt="Educación ambiental ReciTunja" class="service-image">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Ola servicios → stats ── -->
+  <div class="section-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,30 C360,0 1080,60 1440,30 L1440,60 L0,60 Z" fill="var(--bg-cream)"/>
+    </svg>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       STATS (Logros)
+  ══════════════════════════════════════════ -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-content">
+        <div class="subtitle">Nuestro Impacto</div>
+        <h2>Resultados que transforman Tunja</h2>
+        <p>Cada kilogramo reciclado es un paso hacia una ciudad más limpia, justa y sostenible.</p>
+        <div class="stats-pills">
+          <span class="pill">Cartón</span>
+          <span class="pill">Plástico</span>
+          <span class="pill">Vidrio</span>
+          <span class="pill">Metal</span>
+          <span class="pill">Papel</span>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <i class="fa-solid fa-box stat-icon"></i>
+            <div class="stat-bar-container">
+              <div class="stat-info"><span>Cartón y papel</span><span>82%</span></div>
+              <div class="stat-bar"><div class="stat-fill" style="width:82%" data-width="82%"></div></div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fa-solid fa-bottle-water stat-icon"></i>
+            <div class="stat-bar-container">
+              <div class="stat-info"><span>Plástico</span><span>74%</span></div>
+              <div class="stat-bar"><div class="stat-fill" style="width:74%" data-width="74%"></div></div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fa-solid fa-wine-bottle stat-icon"></i>
+            <div class="stat-bar-container">
+              <div class="stat-info"><span>Vidrio</span><span>65%</span></div>
+              <div class="stat-bar"><div class="stat-fill" style="width:65%" data-width="65%"></div></div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fa-solid fa-gears stat-icon"></i>
+            <div class="stat-bar-container">
+              <div class="stat-info"><span>Metal y chatarra</span><span>58%</span></div>
+              <div class="stat-bar"><div class="stat-fill" style="width:58%" data-width="58%"></div></div>
+            </div>
+          </div>
+        </div>
+        <a href="LA EMPRESA.HTML" class="btn btn-primary" style="margin-top:2rem; display:inline-flex;">
+          Conoce la empresa <i class="fa-solid fa-arrow-right" style="margin-left:8px;"></i>
+        </a>
+      </div>
+      <div class="stats-image">
+        <img src="_MG_6921_1 Modificado.jpg" alt="Equipo ReciTunja">
+        <div class="badge-planet">
+          <span>+10</span>años<br>reciclando
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Ola stats → educación ── -->
+  <div class="section-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#f0f9f4"/>
+    </svg>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       EDUCACIÓN AMBIENTAL
+  ══════════════════════════════════════════ -->
+  <section class="education-section" id="educacion-ambiental">
+    <div class="container">
+      <div class="section-heading text-center max-w-800">
+        <div class="subtitle" style="justify-content:center;">Consejos Prácticos</div>
+        <h2>¿Cómo reciclar correctamente?</h2>
+        <p style="color:var(--text-muted); margin-bottom:2rem;">
+          Sigue estos consejos para que los materiales que entregas a los Verdecitos de ReciTunja lleguen en las mejores condiciones y puedan ser aprovechados.
+        </p>
+      </div>
+
+      <!-- 5 tips visibles -->
+      <div class="education-card">
+        <span class="edu-icon">🧴</span>
+        <p><strong>Enjuaga antes de entregar.</strong> Lava las bolsas plásticas de carnes y frascos antes de entregárselos a los Verdecitos; una pequeña limpieza marca la diferencia.</p>
+      </div>
+      <div class="education-card">
+        <span class="edu-icon">🥚</span>
+        <p><strong>Cubetas de huevo limpias.</strong> Deben estar sin rotos ni aplastadas para poder reutilizarse correctamente.</p>
+      </div>
+      <div class="education-card">
+        <span class="edu-icon">🧃</span>
+        <p><strong>Tetra Pack sí es reciclable.</strong> Las cajas de leche y jugos son bienvenidas; enjuágalas y entrégalas secas.</p>
+      </div>
+      <div class="education-card">
+        <span class="edu-icon">♻️</span>
+        <p><strong>Separa en casa.</strong> Cartón, plástico, vidrio, metal y papel van en bolsa aparte de la basura ordinaria.</p>
+      </div>
+      <div class="education-card">
+        <span class="edu-icon">🌿</span>
+        <p><strong>Un reciclable sucio contamina todos.</strong> Limpiar antes de separar es clave para no perder el valor del material.</p>
+      </div>
+
+      <!-- Tips extras colapsables -->
+      <div class="edu-extra" id="edu-extra">
+        <div class="education-card">
+          <span class="edu-icon">💧</span>
+          <p><strong>Reutiliza el agua.</strong> El agua usada para enjuagar reciclables puede reutilizarse para el piso o el jardín.</p>
+        </div>
+        <div class="education-card">
+          <span class="edu-icon">📦</span>
+          <p><strong>Aplana las cajas.</strong> Aplana las cajas de cartón para que ocupen menos espacio y sea más fácil su recolección.</p>
+        </div>
+        <div class="education-card">
+          <span class="edu-icon">🔵</span>
+          <p><strong>Usa la bolsa azul.</strong> Deposita todos tus materiales reciclables secos y limpios en la bolsa azul, en el día y horario de la ruta selectiva de tu barrio.</p>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:2rem; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+        <button class="btn btn-primary education-toggle" aria-expanded="false" aria-controls="edu-extra">
+          Ver más consejos ▼
+        </button>
+        <a href="EDUCACION.HTML" class="btn btn-ghost-green">
+          Página de educación <i class="fa-solid fa-arrow-right" style="margin-left:8px;"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Ola educación → separación ── -->
+  <div class="section-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,30 C360,0 1080,60 1440,30 L1440,60 L0,60 Z" fill="#fff"/>
+    </svg>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SEPARACIÓN DE RESIDUOS
+  ══════════════════════════════════════════ -->
+  <section class="waste-section" id="separacion-residuos">
+    <div class="container">
+      <div class="section-heading text-center max-w-800">
+        <div class="subtitle" style="justify-content:center;">Ruta Selectiva</div>
+        <h2>¿Qué materiales reciclamos?</h2>
+        <p style="color:var(--text-muted); margin-bottom:2.5rem;">
+          Para que el proceso funcione, es importante saber qué acepta nuestro equipo. Recuerda: deben estar <strong>limpios y secos</strong>.
+        </p>
+      </div>
+
+      <div class="waste-grid">
+        <div class="waste-col yes">
+          <h3>✅ Sí recibimos</h3>
+          <ul>
+            <li>✅ Plegadiza, cajas de cartón, cubetas de huevo, bolsas plásticas</li>
+            <li>✅ Botellas de gaseosa, jugos, té, licores y aceite</li>
+            <li>✅ Envases de vidrio, perfumes, cervezas, cafés y cremas</li>
+            <li>✅ Frascos de detergente, limpiadores, shampoo y desodorantes</li>
+            <li>✅ Aerosoles, varillas, ollas y cubiertos</li>
+            <li>✅ Revistas, periódicos, libros y cuadernos</li>
+            <li>✅ Latas de refrescos, cervezas, sardinas y atún</li>
+            <li>✅ Cajas de leche, tapas plásticas, pasta, sillas, baldes y canecas</li>
+            <li>✅ Chatarra, cobre y bronce</li>
+          </ul>
+        </div>
+        <div class="waste-col no">
+          <h3>❌ No recibimos</h3>
+          <ul>
+            <li>❌ Icopor</li>
+            <li>❌ Plásticos chirriones (envolturas, paquetes de confitería)</li>
+            <li>❌ Plásticos de un solo uso (desechables)</li>
+            <li>❌ Residuos reciclables sucios o contaminados</li>
+            <li>❌ Madera o mueblería</li>
+            <li>❌ Vidrio plano (ventanas)</li>
+            <li>❌ Residuos sanitarios, biológicos o químicos</li>
+            <li>❌ Ropa o zapatos</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:3rem;">
+        <a href="SEPARACION.HTML" class="btn btn-primary">
+          Ver página completa <i class="fa-solid fa-arrow-right" style="margin-left:8px;"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Ola separación → footer ── -->
+  <div class="section-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="var(--secondary-color)"/>
+    </svg>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
@@ -82,7 +592,11 @@
     </div>
   </footer>
 
-  <a href="https://wa.me/3123365396?text=Hola Asesor En Linea escribo desde la pagina web de Recitunja, necesito asesoria" class="whatsapp-widget" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a>
+  <!-- WhatsApp Widget -->
+  <a href="https://wa.me/3123365396?text=Hola Asesor En Linea escribo desde la pagina web de Recitunja, necesito asesoria"
+     class="whatsapp-widget" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
 
   <script src="main.js"></script>
 </body>
