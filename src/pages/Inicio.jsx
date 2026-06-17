@@ -2,21 +2,17 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { APROVECHABLES, NO_APROVECHABLES, TIPS_RECICLAJE } from '../constants/data';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Inicio = () => {
   const [activeTip, setActiveTip] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [hoveredIcon, setHoveredIcon] = useState(null);
-
-  const containerRef = useRef(null);
-  const stickyRef = useRef(null);
-  const orbitRef = useRef(null);
-  const iconsRef = useRef([]);
+  
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const infoRef = useRef(null);
 
   // Detect mobile and prefers-reduced-motion
   useEffect(() => {
@@ -41,169 +37,59 @@ const Inicio = () => {
     };
   }, []);
 
-  // GSAP Scroll animation for Desktop
+  // Auto-play timer for carousel
+  useEffect(() => {
+    if (!isPlaying) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % APROVECHABLES.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isPlaying]);
+
+  // GSAP animation when activeIndex changes
   useGSAP(() => {
-    if (isMobile || reducedMotion) return;
+    if (!infoRef.current) return;
+    gsap.fromTo(
+      infoRef.current.querySelectorAll('.animate-fade'),
+      { opacity: 0, y: 15 },
+      { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power2.out' }
+    );
+  }, [activeIndex]);
 
-    // Reset initial rotation values
-    gsap.set(orbitRef.current, { rotation: 0 });
-    iconsRef.current.forEach((icon) => {
-      if (icon) gsap.set(icon, { rotation: 0 });
-    });
-
-    // 1. Initial State configuration (Item 0 should be fully active when page loads)
-    gsap.set('#header-0', { opacity: 1, y: 0, scale: 1, pointerEvents: 'auto' });
-    gsap.set('#details-0', { opacity: 1, y: 0, scale: 1, pointerEvents: 'auto' });
-    gsap.set('#orbit-icon-0', {
-      scale: 1.3,
-      borderColor: APROVECHABLES[0].color,
-      backgroundColor: 'rgba(255, 255, 255, 0.2)',
-      boxShadow: `0 0 25px ${APROVECHABLES[0].color}80`,
-    });
-
-    // Pinned container timeline
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current, // h-[500vh] container
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 0.5,
-        pin: stickyRef.current, // Pin the 100vh inner container
-      }
-    });
-
-    // 2. Rotate the orbit ring
-    tl.to(orbitRef.current, {
-      rotation: 360,
-      ease: 'none',
-      duration: APROVECHABLES.length,
-    }, 0);
-
-    // 3. Counter-rotate icons to keep them upright
-    iconsRef.current.forEach((icon) => {
-      if (icon) {
-        tl.to(icon, {
-          rotation: -360,
-          ease: 'none',
-          duration: APROVECHABLES.length,
-        }, 0);
-      }
-    });
-
-    // 4. Sequential Reveal of Panels and Highlighting of active orbiting items
-    APROVECHABLES.forEach((mat, idx) => {
-      const startTime = idx; // Each step takes 1 unit of duration
-      
-      // If it's NOT the first item, animate its entrance (since item 0 starts active)
-      if (idx > 0) {
-        // Header Fade In
-        tl.to(`#header-${idx}`, {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          pointerEvents: 'auto',
-          duration: 0.4,
-          ease: 'power2.out',
-        }, startTime + 0.1);
-
-        // Details Card Fade In
-        tl.to(`#details-${idx}`, {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          pointerEvents: 'auto',
-          duration: 0.4,
-          ease: 'power2.out',
-        }, startTime + 0.1);
-
-        // Icon Active state (scale and glow)
-        tl.to(`#orbit-icon-${idx}`, {
-          scale: 1.3,
-          borderColor: mat.color,
-          backgroundColor: 'rgba(255, 255, 255, 0.2)',
-          boxShadow: `0 0 25px ${mat.color}80`,
-          duration: 0.4,
-        }, startTime + 0.1);
-      }
-
-      // Animate the exit (for all items EXCEPT the last one)
-      if (idx < APROVECHABLES.length - 1) {
-        tl.to(`#header-${idx}`, {
-          opacity: 0,
-          y: -20,
-          scale: 0.95,
-          pointerEvents: 'none',
-          duration: 0.4,
-          ease: 'power2.in',
-        }, startTime + 0.7);
-
-        tl.to(`#details-${idx}`, {
-          opacity: 0,
-          y: -20,
-          scale: 0.95,
-          pointerEvents: 'none',
-          duration: 0.4,
-          ease: 'power2.in',
-        }, startTime + 0.7);
-
-        tl.to(`#orbit-icon-${idx}`, {
-          scale: 1,
-          borderColor: 'rgba(255, 255, 255, 0.2)',
-          backgroundColor: 'rgba(255, 255, 255, 0.05)',
-          boxShadow: 'none',
-          duration: 0.4,
-        }, startTime + 0.7);
-      }
-    });
-
-  }, { scope: containerRef, dependencies: [isMobile, reducedMotion] });
-
-  // Calculate circular layout positions for orbit icons (radius 160px)
-  const getOrbitPosition = (index, total) => {
-    const angle = (index * 2 * Math.PI) / total - Math.PI / 2; // Start from top (-90 degrees)
-    const radius = 160; // px
-    const x = Math.cos(angle) * radius;
-    const y = Math.sin(angle) * radius;
-    return { x, y };
+  const handlePrev = () => {
+    setIsPlaying(false);
+    setActiveIndex((prev) => (prev - 1 + APROVECHABLES.length) % APROVECHABLES.length);
   };
 
-  // Click handler to scroll the page to highlight a specific material
-  const handleIconClick = (idx) => {
-    if (isMobile || reducedMotion || !containerRef.current) return;
-    
-    const container = containerRef.current;
-    const rect = container.getBoundingClientRect();
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    
-    // Total height that the user can scroll through inside the trigger container
-    const triggerTop = rect.top + scrollTop;
-    const triggerHeight = rect.height;
-    const viewportHeight = window.innerHeight;
-    const scrollableDistance = triggerHeight - viewportHeight;
-    
-    // Linearly interpolate scroll position for index idx
-    const fraction = idx / (APROVECHABLES.length - 1);
-    const targetScroll = triggerTop + fraction * scrollableDistance;
+  const handleNext = () => {
+    setIsPlaying(false);
+    setActiveIndex((prev) => (prev + 1) % APROVECHABLES.length);
+  };
 
-    window.scrollTo({
-      top: targetScroll,
-      behavior: 'smooth'
-    });
+  const handleIconClick = (idx) => {
+    setIsPlaying(false);
+    setActiveIndex(idx);
   };
 
   const toggleTip = (id) => {
     setActiveTip(activeTip === id ? null : id);
   };
 
+  const activeMaterial = APROVECHABLES[activeIndex];
+  const wheelRotation = -90 - activeIndex * 40;
+
   return (
     <div className="w-full">
       {/* ==========================================
            HERO SECTION
          ========================================== */}
-      <section className="relative min-h-screen bg-secondary-dark flex items-center pt-24 pb-16 overflow-hidden z-10">
+      <section className="relative min-h-screen flex items-center pt-24 pb-20 overflow-hidden z-10">
+        {/* Imagen de fondo con gradiente de oscurecimiento */}
         <div 
-          className="absolute inset-0 z-0 pointer-events-none" 
-          style={{ background: 'radial-gradient(circle at 75% 50%, rgba(96, 223, 120, 0.08) 0%, rgba(6, 26, 18, 1) 60%)' }} 
+          className="absolute inset-0 z-0 bg-cover bg-center pointer-events-none" 
+          style={{ 
+            backgroundImage: "linear-gradient(to right, rgba(6, 26, 18, 0.95) 35%, rgba(6, 26, 18, 0.6) 70%, rgba(6, 26, 18, 0.9) 100%), url('/_MG_6921_1 Modificado.jpg')" 
+          }} 
         />
         
         <div className="max-w-[1200px] mx-auto px-4 md:px-8 grid lg:grid-cols-12 gap-12 items-center relative z-10 w-full">
@@ -263,14 +149,14 @@ const Inicio = () => {
             </div>
           </div>
         </div>
-      </section>
 
-      {/* WAVE TRANSITION HERO -> MARQUEE */}
-      <div className="section-wave bg-secondary-dark text-primary">
-        <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="currentColor"/>
-        </svg>
-      </div>
+        {/* Wave transition absolute at bottom of Hero */}
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden line-height-0 text-primary z-20">
+          <svg viewBox="0 0 1440 60" className="relative block w-full h-[60px]" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="currentColor"/>
+          </svg>
+        </div>
+      </section>
 
       {/* MARQUEE BAR */}
       <div className="bg-primary py-4 overflow-hidden relative z-10 shadow-md">
@@ -294,170 +180,213 @@ const Inicio = () => {
       </div>
 
       {/* ==========================================
-           STICKY INTERACTION SECTION (GSAP Centered Reveal)
+           MATERIALES CAROUSEL SECTION (Semicircle Orbit Slider)
          ========================================== */}
-      <section 
-        ref={containerRef} 
-        className={`w-full bg-secondary-dark text-white overflow-hidden relative z-20 ${
-          isMobile || reducedMotion ? 'py-20' : 'h-[500vh]'
-        }`}
-      >
-        {isMobile || reducedMotion ? (
-          /* ──────────────────────────────────────────
-             A11Y & MOBILE FALLBACK (Linear list)
-             ────────────────────────────────────────── */
-          <div className="max-w-[1200px] mx-auto px-6">
-            <div className="text-center max-w-2xl mx-auto mb-16">
-              <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-primary font-bold mb-3">
-                <span className="w-6 h-[2px] bg-primary"></span>
-                Materiales Aprovechables
-              </div>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">¿Qué podemos reciclar?</h2>
-              <p className="text-white/60 text-sm md:text-base">
-                Conoce los 9 grupos de materiales que la ruta selectiva de ReciTunja aprovecha diariamente.
-              </p>
-            </div>
+      <section className="w-full bg-secondary-dark text-white py-20 relative z-20 overflow-hidden">
+        {/* Background ambient light */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full filter blur-[150px] pointer-events-none" />
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {APROVECHABLES.map((mat) => (
-                <div 
-                  key={mat.id} 
-                  className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-primary/50 hover:bg-white/[0.08] transition-all duration-300 flex flex-col justify-between"
-                  style={{ borderTop: `4px solid ${mat.color}` }}
-                >
-                  <div>
-                    <div 
-                      className="w-12 h-12 rounded-full flex items-center justify-center text-lg mb-4"
-                      style={{ backgroundColor: `${mat.color}20`, color: mat.color }}
-                    >
-                      <i className={`fa-solid ${mat.icon}`}></i>
-                    </div>
-                    <h3 className="text-xl font-bold mb-2" style={{ color: mat.color }}>{mat.title}</h3>
-                    <p className="text-white/70 text-sm mb-4 leading-relaxed font-semibold">{mat.items}</p>
-                  </div>
-                  <div className="text-xs text-white/50 bg-black/20 p-3 rounded-lg border border-white/5 italic">
-                    {mat.details}
-                  </div>
-                </div>
-              ))}
+        <div className="max-w-[1200px] mx-auto px-4 md:px-8 relative z-10">
+          
+          {/* Header area */}
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-primary font-bold mb-3">
+              <span className="w-6 h-[2px] bg-primary"></span>
+              Materiales Aprovechables
             </div>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4">
+              ¿Qué podemos reciclar?
+            </h2>
+            <p className="text-white/60 text-sm md:text-base">
+              Conoce los 9 grupos de materiales que la ruta selectiva de ReciTunja aprovecha diariamente.
+            </p>
           </div>
-        ) : (
-          /* ──────────────────────────────────────────
-             DESKTOP PINNED SYMMETRICAL INTERACTION (Orbit centered, Header top, Card bottom)
-             ────────────────────────────────────────── */
-          <div 
-            ref={stickyRef} 
-            className="w-full h-screen bg-secondary-dark relative flex flex-col justify-between items-center py-20 px-8"
-          >
-            {/* Visual background lights */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full filter blur-[120px] pointer-events-none" />
+
+          {/* Semicircle Carousel Container */}
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
             
-            {/* TOP HEADER CONTAINER */}
-            <div className="relative w-full max-w-[800px] h-[100px] flex items-center justify-center z-20 pointer-events-none">
-              {APROVECHABLES.map((mat, idx) => (
-                <div
-                  key={mat.id}
-                  id={`header-${idx}`}
-                  className="absolute inset-0 flex flex-col items-center justify-center opacity-0 scale-95 pointer-events-none translate-y-4"
+            {/* Columna Izquierda: Información del Material Activo y Controles */}
+            <div ref={infoRef} className="lg:col-span-5 flex flex-col justify-center min-h-[460px] lg:min-h-[500px]">
+              
+              {/* Grupo Activo Pill */}
+              <div 
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase mb-4 w-fit animate-fade" 
+                style={{ backgroundColor: `${activeMaterial.color}20`, color: activeMaterial.color }}
+              >
+                <i className={`fa-solid ${activeMaterial.icon}`}></i> Grupo {activeIndex + 1} de {APROVECHABLES.length}
+              </div>
+
+              {/* Título Principal */}
+              <h3 className="text-3xl md:text-4xl font-extrabold text-white mb-4 leading-tight animate-fade">
+                {activeMaterial.title}
+              </h3>
+
+              {/* Ítems incluidos */}
+              <div className="mb-6 animate-fade">
+                <h4 className="text-[10px] uppercase tracking-wider text-white/40 mb-1.5">Materiales Incluidos</h4>
+                <p className="text-base font-semibold text-primary leading-relaxed">
+                  {activeMaterial.items}
+                </p>
+              </div>
+
+              {/* Detalle/Consejo */}
+              <div 
+                className="bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-2xl p-5 mb-8 text-sm text-white/70 leading-relaxed italic animate-fade"
+                style={{ borderLeft: `4px solid ${activeMaterial.color}` }}
+              >
+                <strong>Consejo:</strong> {activeMaterial.details}
+              </div>
+
+              {/* Controles de Navegación */}
+              <div className="flex items-center gap-4 animate-fade">
+                {/* Botón Prev */}
+                <button 
+                  onClick={handlePrev}
+                  className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 hover:border-primary transition-all duration-300 active:scale-95 cursor-pointer"
+                  aria-label="Anterior material"
                 >
-                  <div 
-                    className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase mb-2" 
-                    style={{ backgroundColor: `${mat.color}20`, color: mat.color }}
-                  >
-                    <i className={`fa-solid ${mat.icon}`}></i> Grupo {idx + 1} de {APROVECHABLES.length}
-                  </div>
-                  <h2 className="text-2xl md:text-4xl font-extrabold text-white text-center tracking-tight leading-tight">
-                    {mat.title}
-                  </h2>
+                  <i className="fa-solid fa-chevron-left text-sm"></i>
+                </button>
+
+                {/* Botón Play/Pause */}
+                <button 
+                  onClick={() => setIsPlaying(!isPlaying)}
+                  className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 hover:border-primary transition-all duration-300 active:scale-95 cursor-pointer"
+                  aria-label={isPlaying ? "Pausar reproducción" : "Reproducir automáticamente"}
+                >
+                  <i className={`fa-solid ${isPlaying ? 'fa-pause' : 'fa-play'} text-sm`}></i>
+                </button>
+
+                {/* Botón Next */}
+                <button 
+                  onClick={handleNext}
+                  className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 hover:border-primary transition-all duration-300 active:scale-95 cursor-pointer"
+                  aria-label="Siguiente material"
+                >
+                  <i className="fa-solid fa-chevron-right text-sm"></i>
+                </button>
+
+                {/* Paginación - Bullets */}
+                <div className="flex gap-2 ml-4">
+                  {APROVECHABLES.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => handleIconClick(i)}
+                      className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                        i === activeIndex 
+                          ? 'w-6' 
+                          : 'w-2.5 bg-white/20 hover:bg-white/40'
+                      }`}
+                      style={{ backgroundColor: i === activeIndex ? activeMaterial.color : undefined }}
+                      aria-label={`Ir al material ${i + 1}`}
+                    />
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
 
-            {/* CENTER ORBIT CONTAINER */}
-            <div className="flex-grow flex items-center justify-center relative w-full z-10 py-4">
-              <div className="w-[420px] h-[420px] relative flex items-center justify-center">
-                
-                {/* Orbit dashed ring */}
-                <div className="absolute w-[320px] h-[320px] rounded-full border border-white/5 border-dashed pointer-events-none" />
-                
-                {/* Center logo - circular brand */}
-                <div className="absolute w-[140px] h-[140px] rounded-full bg-white flex items-center justify-center shadow-[0_0_50px_rgba(96,223,120,0.12)] z-20 border-4 border-primary hover:rotate-12 transition-transform duration-500 cursor-pointer">
-                  <img 
-                    src="/logo.png" 
-                    alt="ReciTunja Logo central" 
-                    className="w-[110px] h-[110px] object-cover rounded-full"
+            {/* Columna Derecha: Órbita Semicircular */}
+            <div className="lg:col-span-7 flex justify-center items-center relative overflow-hidden h-[380px] md:h-[500px] w-full">
+              
+              {/* Trayectoria semicircular punteada */}
+              <div 
+                className="absolute rounded-full border border-dashed border-white/15 pointer-events-none"
+                style={{ 
+                  width: isMobile ? '320px' : '500px',
+                  height: isMobile ? '320px' : '500px',
+                  bottom: isMobile ? '-160px' : '-250px' 
+                }}
+              />
+
+              {/* Centro de la órbita (Estático) */}
+              <div 
+                className="absolute rounded-full bg-secondary-dark flex items-center justify-center z-20 border-4 shadow-2xl transition-all duration-500"
+                style={{ 
+                  width: isMobile ? '150px' : '220px',
+                  height: isMobile ? '150px' : '220px',
+                  borderColor: activeMaterial.color,
+                  bottom: isMobile ? '-75px' : '-110px',
+                  boxShadow: `0 -10px 40px ${activeMaterial.color}25`
+                }}
+              >
+                {/* Ondas concéntricas (efecto ripple de fondo) */}
+                <div 
+                  className="absolute inset-0 rounded-full animate-ping opacity-10" 
+                  style={{ backgroundColor: activeMaterial.color, animationDuration: '3s' }} 
+                />
+
+                {/* Contenido destacado (sin texto visible) */}
+                <div className="flex flex-col items-center justify-center text-white text-center p-3 md:p-4 pb-6 md:pb-12 select-none w-full">
+                  <i 
+                    className={`fa-solid ${activeMaterial.icon} text-4xl md:text-6xl transition-transform duration-500`} 
+                    style={{ color: activeMaterial.color }} 
                   />
                 </div>
-
-                {/* Rotating orbit */}
-                <div ref={orbitRef} className="absolute w-[320px] h-[320px] rounded-full flex items-center justify-center z-10">
-                  {APROVECHABLES.map((mat, idx) => {
-                    const pos = getOrbitPosition(idx, APROVECHABLES.length);
-                    const isHovered = hoveredIcon === idx;
-                    return (
-                      <button
-                        key={mat.id}
-                        id={`orbit-icon-${idx}`}
-                        ref={(el) => (iconsRef.current[idx] = el)}
-                        onClick={() => handleIconClick(idx)}
-                        onMouseEnter={() => setHoveredIcon(idx)}
-                        onMouseLeave={() => setHoveredIcon(null)}
-                        className="absolute w-[52px] h-[52px] rounded-full bg-white/5 border border-white/20 flex items-center justify-center cursor-pointer text-white transition-all duration-300 hover:scale-125 focus:outline-none"
-                        style={{
-                          transform: `translate(${pos.x}px, ${pos.y}px)`,
-                          zIndex: isHovered ? 30 : 10
-                        }}
-                      >
-                        <i className={`fa-solid ${mat.icon} text-lg`}></i>
-
-                        {/* Tooltip on Hover */}
-                        <div 
-                          className={`absolute bottom-full mb-3 px-3 py-1.5 bg-secondary-dark/95 border border-white/10 text-white text-[11px] font-bold rounded-lg whitespace-nowrap shadow-xl pointer-events-none transition-all duration-300 ${
-                            isHovered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-2 scale-90'
-                          }`}
-                          style={{ borderBottomColor: mat.color }}
-                        >
-                          {mat.shortTitle}
-                          <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-4 border-x-transparent border-t-4 border-t-secondary-dark/95" />
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-
               </div>
-            </div>
 
-            {/* BOTTOM DETAILS CONTAINER */}
-            <div className="relative w-full max-w-[850px] h-[160px] flex items-center justify-center z-20">
-              {APROVECHABLES.map((mat, idx) => (
-                <div
-                  key={mat.id}
-                  id={`details-${idx}`}
-                  className="absolute inset-0 flex items-center justify-center opacity-0 scale-95 pointer-events-none translate-y-4 px-4"
-                >
-                  <div 
-                    className="w-full bg-white/[0.02] backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-2xl relative grid md:grid-cols-12 gap-6 items-center"
-                    style={{ 
-                      boxShadow: `0 0 35px ${mat.color}10`,
-                      borderLeft: `4px solid ${mat.color}`
-                    }}
-                  >
-                    <div className="md:col-span-7">
-                      <h4 className="text-[10px] uppercase tracking-wider text-white/40 mb-1">Materiales Incluidos</h4>
-                      <p className="text-sm md:text-base font-medium text-primary leading-relaxed">{mat.items}</p>
-                    </div>
-                    <div className="md:col-span-5 bg-black/25 p-4 rounded-xl border border-white/5 text-xs md:text-sm text-white/70 leading-relaxed italic">
-                      <strong>Consejo:</strong> {mat.details}
-                    </div>
-                  </div>
-                </div>
-              ))}
+              {/* Rueda de órbita giratoria */}
+              <div 
+                className="absolute rounded-full flex items-center justify-center z-10 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                style={{ 
+                  width: isMobile ? '320px' : '500px',
+                  height: isMobile ? '320px' : '500px',
+                  bottom: isMobile ? '-160px' : '-250px',
+                  transform: `rotate(${wheelRotation}deg)`
+                }}
+              >
+                {APROVECHABLES.map((mat, idx) => {
+                  const itemAngle = idx * 40; // Spacing es 360/9 = 40
+                  const radius = isMobile ? 160 : 250;
+                  const rad = (itemAngle * Math.PI) / 180;
+                  const x = Math.cos(rad) * radius;
+                  const y = Math.sin(rad) * radius;
+                  const isActive = idx === activeIndex;
+                  const isHovered = hoveredIcon === idx;
+
+                  return (
+                    <button
+                      key={mat.id}
+                      onClick={() => handleIconClick(idx)}
+                      onMouseEnter={() => setHoveredIcon(idx)}
+                      onMouseLeave={() => setHoveredIcon(null)}
+                      className={`absolute rounded-full flex items-center justify-center cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] focus:outline-none ${
+                        isActive 
+                          ? 'bg-white shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-115 z-30' 
+                          : 'bg-white/5 border border-white/20 text-white/70 hover:bg-white/15 hover:text-white hover:scale-105 z-10'
+                      }`}
+                      style={{
+                        width: isMobile ? '42px' : '56px',
+                        height: isMobile ? '42px' : '56px',
+                        top: '50%',
+                        left: '50%',
+                        transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${-wheelRotation}deg)`,
+                        borderColor: isActive ? mat.color : undefined,
+                        color: isActive ? mat.color : undefined
+                      }}
+                      title={mat.shortTitle}
+                    >
+                      <i className={`fa-solid ${mat.icon} text-base md:text-xl`}></i>
+
+                      {/* Tooltip on Hover */}
+                      <div 
+                        className={`absolute bottom-full mb-3 px-2.5 py-1 bg-secondary-dark/95 border border-white/10 text-white text-[10px] font-bold rounded-lg whitespace-nowrap shadow-xl pointer-events-none transition-all duration-300 ${
+                          isHovered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-2 scale-90'
+                        }`}
+                        style={{ borderBottomColor: mat.color }}
+                      >
+                        {mat.shortTitle}
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-4 border-x-transparent border-t-4 border-t-secondary-dark/95" />
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
             </div>
 
           </div>
-        )}
+
+        </div>
       </section>
 
       {/* Wave Transition Sticky -> Separation & Tips Section */}
