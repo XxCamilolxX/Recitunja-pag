@@ -83,69 +83,39 @@ const Inicio = () => {
       {/* ==========================================
            HERO SECTION
          ========================================== */}
-      <section className="relative min-h-screen flex items-center pt-24 pb-20 overflow-hidden z-10">
+      <section className="relative min-h-screen flex items-end pt-24 pb-24 md:pb-28 overflow-hidden z-10">
         {/* Imagen de fondo con gradiente de oscurecimiento */}
         <div 
           className="absolute inset-0 z-0 bg-cover bg-center pointer-events-none" 
           style={{ 
-            backgroundImage: "linear-gradient(to right, rgba(6, 26, 18, 0.95) 35%, rgba(6, 26, 18, 0.6) 70%, rgba(6, 26, 18, 0.9) 100%), url('/_MG_6921_1 Modificado.jpg')" 
+            backgroundImage: "linear-gradient(to top, rgba(6, 26, 18, 0.74) 0%, rgba(6, 26, 18, 0.28) 32%, rgba(6, 26, 18, 0.08) 62%, rgba(6, 26, 18, 0.18) 100%), url('/_MG_6921_1 Modificado.jpg')" 
           }} 
         />
         
-        <div className="max-w-[1200px] mx-auto px-4 md:px-8 grid lg:grid-cols-12 gap-12 items-center relative z-10 w-full">
-          {/* Left Text */}
-          <div className="text-white flex flex-col items-start lg:col-span-7">
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-4 leading-none">
+        <div className="max-w-[1200px] mx-auto px-4 md:px-8 relative z-10 w-full">
+          {/* Centered Hero Text */}
+          <div className="text-white flex flex-col items-start text-left max-w-xl">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-3 leading-none drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]">
               <span className="text-primary">RECI</span>TUNJA
             </h1>
-            <p className="text-xl md:text-2xl italic font-light text-primary/80 mb-6">
+            <p className="text-lg md:text-2xl italic font-light text-primary/90 mb-6 drop-shadow-[0_3px_14px_rgba(0,0,0,0.5)]">
               Porque el medio ambiente eres tú
             </p>
-            <p className="text-lg text-white/70 mb-8 max-w-xl leading-relaxed">
-              Transformamos los residuos de Tunja en nuevas oportunidades. Descubre cómo tu compromiso con el reciclaje construye un futuro más limpio y sostenible para todos. Únete a la economía circular.
-            </p>
-            
-            {/* Stats pill */}
-            <div className="inline-flex items-center gap-3 bg-white/5 border border-white/10 px-5 py-3 rounded-full mb-8 backdrop-blur-sm shadow-md">
-              <span className="text-xl md:text-2xl font-bold text-primary">+500 ton</span>
-              <span className="text-lg">🍃</span>
-              <span className="text-sm italic text-white/80">recicladas</span>
-            </div>
 
             {/* Actions */}
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-3 justify-start">
               <Link 
                 to="/contacto" 
-                className="inline-flex items-center justify-center px-8 py-3.5 rounded-full font-bold text-sm bg-primary text-secondary-dark hover:bg-primary-dark hover:text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0"
+                className="inline-flex items-center justify-center px-6 md:px-8 py-3 md:py-3.5 rounded-full font-bold text-xs md:text-sm bg-primary text-secondary-dark hover:bg-primary-dark hover:text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0"
               >
                 CONTÁCTANOS <i className="fa-solid fa-leaf ml-2"></i>
               </Link>
               <Link 
                 to="/la-empresa" 
-                className="inline-flex items-center justify-center px-8 py-3.5 rounded-full font-bold text-sm border-2 border-white/20 text-white hover:bg-white/10 transition-all duration-300 hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center px-6 md:px-8 py-3 md:py-3.5 rounded-full font-bold text-xs md:text-sm border-2 border-white/35 text-white hover:bg-white/10 transition-all duration-300 hover:-translate-y-0.5"
               >
                 TRABAJA CON NOSOTROS
               </Link>
-            </div>
-          </div>
-
-          {/* Right Section: Visual showcase */}
-          <div className="flex justify-center items-center relative h-[350px] md:h-[450px] lg:col-span-5">
-            <div className="w-[300px] h-[300px] md:w-[380px] md:h-[380px] rounded-full border border-primary/20 flex items-center justify-center relative bg-secondary-dark/50 backdrop-blur-sm">
-              <div className="absolute inset-0 rounded-full border-2 border-dashed border-primary/10 animate-spin" style={{ animationDuration: '60s' }} />
-              {/* Circular logo */}
-              <div className="w-48 h-48 md:w-60 md:h-60 rounded-full bg-white/5 p-4 border border-white/10 flex items-center justify-center shadow-inner relative z-10">
-                <img 
-                  src="/logo.png" 
-                  alt="ReciTunja Logo circular" 
-                  className="w-full h-full object-cover rounded-full filter drop-shadow-2xl animate-pulse"
-                  style={{ animationDuration: '4s' }}
-                />
-              </div>
-              
-              {/* Floating Leaf items */}
-              <span className="absolute top-10 right-10 text-5xl opacity-25 animate-float-leaf text-primary">🍃</span>
-              <span className="absolute bottom-12 left-8 text-4xl opacity-15 animate-float-leaf text-primary" style={{ animationDelay: '1.5s' }}>🌱</span>
             </div>
           </div>
         </div>
@@ -172,10 +142,58 @@ const Inicio = () => {
         </div>
       </div>
 
-      {/* Wave Transition Marquee to Section */}
-      <div className="section-wave bg-primary text-secondary-dark">
+      {/* Wave Transition Marquee to Mission/Vision */}
+      <div className="section-wave bg-primary text-cream">
         <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
           <path d="M0,30 C360,0 1080,60 1440,30 L1440,60 L0,60 Z" fill="currentColor"/>
+        </svg>
+      </div>
+
+      {/* ==========================================
+           MISIÓN Y VISIÓN SECTION
+         ========================================== */}
+      <section className="bg-cream py-20 relative z-10">
+        <div className="max-w-[1200px] mx-auto px-4 md:px-8">
+          
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-primary font-bold mb-3">
+              <span className="w-6 h-[2px] bg-primary"></span>
+              Nuestra Identidad
+            </div>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-secondary-dark mb-4">Misión y Visión</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Misión */}
+            <div className="bg-white p-8 md:p-10 rounded-3xl border border-gray-200/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-1.5 before:bg-gradient-to-r before:from-primary before:to-emerald-400">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl mb-6">
+                <i className="fa-solid fa-bullseye"></i>
+              </div>
+              <h3 className="text-2xl font-extrabold text-secondary-dark mb-4">Misión</h3>
+              <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                Mejorar la calidad de vida de los recicladores de oficio y de la comunidad tunjana mediante la gestión integral y el aprovechamiento adecuado de los residuos sólidos, operando rutas selectivas domiciliarias y planes de reciclaje empresarial e institucional con capacitación a la comunidad y recolección selectiva en la fuente.
+              </p>
+            </div>
+
+            {/* Visión */}
+            <div className="bg-white p-8 md:p-10 rounded-3xl border border-gray-200/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-1.5 before:bg-gradient-to-r before:from-emerald-400 before:to-primary">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl mb-6">
+                <i className="fa-solid fa-eye"></i>
+              </div>
+              <h3 className="text-2xl font-extrabold text-secondary-dark mb-4">Visión</h3>
+              <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                Ser la organización líder en la gestión integral de residuos sólidos aprovechables en la ciudad de Tunja, reconocida por su compromiso con el medio ambiente, la dignificación de la labor del reciclador y la construcción de una cultura de economía circular que transforme positivamente a nuestra comunidad.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Wave Transition Mission to Materials */}
+      <div className="section-wave bg-cream text-secondary-dark">
+        <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="currentColor"/>
         </svg>
       </div>
 
@@ -190,6 +208,11 @@ const Inicio = () => {
           
           {/* Header area */}
           <div className="text-center max-w-2xl mx-auto mb-16">
+            <img
+              src="/logo-recitunja-2-20.png"
+              alt="ReciTunja"
+              className="w-44 md:w-60 h-auto mx-auto mb-8 drop-shadow-[0_16px_40px_rgba(0,0,0,0.25)]"
+            />
             <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-primary font-bold mb-3">
               <span className="w-6 h-[2px] bg-primary"></span>
               Materiales Aprovechables
@@ -298,14 +321,14 @@ const Inicio = () => {
                 }}
               />
 
-              {/* Centro de la órbita (Estático) */}
+              {/* Centro de la órbita — Imagen del material activo */}
               <div 
-                className="absolute rounded-full bg-secondary-dark flex items-center justify-center z-20 border-4 shadow-2xl transition-all duration-500"
+                className="absolute rounded-full bg-secondary-dark flex items-center justify-center z-20 border-4 shadow-2xl transition-all duration-500 overflow-hidden"
                 style={{ 
-                  width: isMobile ? '150px' : '220px',
-                  height: isMobile ? '150px' : '220px',
+                  width: isMobile ? '170px' : '260px',
+                  height: isMobile ? '170px' : '260px',
                   borderColor: activeMaterial.color,
-                  bottom: isMobile ? '-75px' : '-110px',
+                  bottom: isMobile ? '18px' : '28px',
                   boxShadow: `0 -10px 40px ${activeMaterial.color}25`
                 }}
               >
@@ -315,11 +338,12 @@ const Inicio = () => {
                   style={{ backgroundColor: activeMaterial.color, animationDuration: '3s' }} 
                 />
 
-                {/* Contenido destacado (sin texto visible) */}
-                <div className="flex flex-col items-center justify-center text-white text-center p-3 md:p-4 pb-6 md:pb-12 select-none w-full">
-                  <i 
-                    className={`fa-solid ${activeMaterial.icon} text-4xl md:text-6xl transition-transform duration-500`} 
-                    style={{ color: activeMaterial.color }} 
+                {/* Imagen del material seleccionado */}
+                <div className="flex items-center justify-center p-5 md:p-8 w-full h-full relative z-10">
+                  <img 
+                    src={activeMaterial.image} 
+                    alt={activeMaterial.shortTitle}
+                    className="w-full h-full object-contain drop-shadow-2xl transition-transform duration-500"
                   />
                 </div>
               </div>
@@ -349,23 +373,26 @@ const Inicio = () => {
                       onClick={() => handleIconClick(idx)}
                       onMouseEnter={() => setHoveredIcon(idx)}
                       onMouseLeave={() => setHoveredIcon(null)}
-                      className={`absolute rounded-full flex items-center justify-center cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] focus:outline-none ${
+                      className={`absolute rounded-full flex items-center justify-center cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] focus:outline-none overflow-hidden ${
                         isActive 
                           ? 'bg-white shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-115 z-30' 
-                          : 'bg-white/5 border border-white/20 text-white/70 hover:bg-white/15 hover:text-white hover:scale-105 z-10'
+                          : 'bg-white/10 border border-white/20 hover:bg-white/20 hover:scale-105 z-10'
                       }`}
                       style={{
-                        width: isMobile ? '42px' : '56px',
-                        height: isMobile ? '42px' : '56px',
+                        width: isMobile ? '46px' : '60px',
+                        height: isMobile ? '46px' : '60px',
                         top: '50%',
                         left: '50%',
                         transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${-wheelRotation}deg)`,
                         borderColor: isActive ? mat.color : undefined,
-                        color: isActive ? mat.color : undefined
                       }}
                       title={mat.shortTitle}
                     >
-                      <i className={`fa-solid ${mat.icon} text-base md:text-xl`}></i>
+                      <img 
+                        src={mat.image} 
+                        alt={mat.shortTitle}
+                        className={`w-[70%] h-[70%] object-contain transition-all duration-300 ${isActive ? '' : 'opacity-70 hover:opacity-100'}`}
+                      />
 
                       {/* Tooltip on Hover */}
                       <div 

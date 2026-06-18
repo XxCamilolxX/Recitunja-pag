@@ -8,6 +8,7 @@ export const APROVECHABLES = [
     colorClass: "text-recycle-carton border-recycle-carton",
     bgClass: "bg-recycle-carton",
     icon: "fa-box",
+    image: "/carton.png",
     details: "Las cajas de cartón deben estar desarmadas y secas. Las bolsas plásticas deben estar limpias y secas."
   },
   {
@@ -19,6 +20,7 @@ export const APROVECHABLES = [
     colorClass: "text-recycle-plastico border-recycle-plastico",
     bgClass: "bg-recycle-plastico",
     icon: "fa-bottle-water",
+    image: "/botella-plastica.png",
     details: "Enjuaga brevemente para retirar residuos dulces o grasos, escúrrelas y aplánalas para ahorrar espacio."
   },
   {
@@ -30,6 +32,7 @@ export const APROVECHABLES = [
     colorClass: "text-recycle-vidrio border-recycle-vidrio",
     bgClass: "bg-recycle-vidrio",
     icon: "fa-wine-bottle",
+    image: "/vidrio.png",
     details: "Los envases de vidrio son infinitamente reciclables. No rompas los frascos y retira las tapas de metal."
   },
   {
@@ -41,6 +44,7 @@ export const APROVECHABLES = [
     colorClass: "text-recycle-plastico border-recycle-plastico",
     bgClass: "bg-recycle-plastico",
     icon: "fa-soap",
+    image: "/frascos-de-plastico.png",
     details: "Limpia y seca los recipientes de aseo personal o de hogar para garantizar que no contaminen otros materiales."
   },
   {
@@ -52,6 +56,7 @@ export const APROVECHABLES = [
     colorClass: "text-recycle-metal border-recycle-metal",
     bgClass: "bg-recycle-metal",
     icon: "fa-utensils",
+    image: "/olla.png",
     details: "Ollas viejas, cubiertos metálicos y varillas de metal son aprovechables. Asegúrate de que no tengan comida."
   },
   {
@@ -63,6 +68,7 @@ export const APROVECHABLES = [
     colorClass: "text-recycle-papel border-recycle-papel",
     bgClass: "bg-recycle-papel",
     icon: "fa-newspaper",
+    image: "/periodico.png",
     details: "Mantén el papel seco, libre de grasa, humedad o pegamento excesivo para facilitar su triturado y reciclaje."
   },
   {
@@ -74,6 +80,7 @@ export const APROVECHABLES = [
     colorClass: "text-recycle-metal border-recycle-metal",
     bgClass: "bg-recycle-metal",
     icon: "fa-prescription-bottle",
+    image: "/latas-de-bebidas.png",
     details: "Las latas de aluminio y hojalata son altamente valoradas. Enjuágalas brevemente, especialmente las de atún y sardinas."
   },
   {
@@ -85,6 +92,7 @@ export const APROVECHABLES = [
     colorClass: "text-recycle-carton border-recycle-carton",
     bgClass: "bg-recycle-carton",
     icon: "fa-blender",
+    image: "/tetrapack.png",
     details: "Incluye cajas de leche (Tetra Pack) bien escurridas y secas, así como sillas de plástico rotas, baldes y canecas de pasta."
   },
   {
@@ -96,6 +104,7 @@ export const APROVECHABLES = [
     colorClass: "text-recycle-metal border-recycle-metal",
     bgClass: "bg-recycle-metal",
     icon: "fa-gears",
+    image: "/cobre.png",
     details: "Metales de demolición o reparación hogareña como cables de cobre viejos, accesorios de bronce y chatarra en general."
   }
 ];

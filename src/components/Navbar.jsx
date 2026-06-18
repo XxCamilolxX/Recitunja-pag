@@ -46,16 +46,16 @@ const Navbar = () => {
     <header 
       ref={navbarRef}
       className={`fixed top-0 left-0 w-full z-[1000] transition-all duration-300 ${
-        isScrolled ? 'py-3 bg-secondary-dark/95 shadow-lg blur-glass border-b border-white/10' : 'py-5 bg-secondary-dark/80 border-b border-white/5'
+        isScrolled ? 'py-3 bg-white/95 shadow-lg border-b border-gray-200' : 'py-5 bg-white/90 border-b border-gray-100'
       } backdrop-blur-md`}
     >
       <div className="max-w-[1200px] mx-auto px-4 md:px-8 flex justify-between items-center">
         {/* Logo */}
         <WaveLink to="/" className="flex items-center gap-2">
           <img 
-            src="/logo.png" 
+            src="/logo-recitunja-2-20.png" 
             alt="ReciTunja Logo" 
-            className="w-[45px] h-[45px] object-cover rounded-full border border-white/20"
+            className="w-[42px] h-[42px] object-contain"
           />
         </WaveLink>
 
@@ -68,7 +68,7 @@ const Navbar = () => {
               className={`relative font-medium text-sm transition-colors duration-300 py-1 ${
                 isActive(link.path) 
                   ? 'text-primary' 
-                  : 'text-white/80 hover:text-primary'
+                  : 'text-secondary-dark/80 hover:text-primary'
               } before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-primary before:transition-all before:duration-300 ${
                 isActive(link.path) ? 'before:w-full' : 'hover:before:w-full'
               }`}
@@ -91,7 +91,7 @@ const Navbar = () => {
 
         {/* Burger Button */}
         <button 
-          className="xl:hidden text-white text-xl p-2 focus:outline-none"
+          className="xl:hidden text-secondary-dark text-xl p-2 focus:outline-none"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Abrir menú"
         >
@@ -101,7 +101,7 @@ const Navbar = () => {
 
       {/* Mobile Drawer */}
       <div 
-        className={`xl:hidden fixed top-[70px] left-0 w-full bg-secondary-dark/95 border-b border-white/10 backdrop-blur-lg transition-all duration-300 overflow-hidden ${
+        className={`xl:hidden fixed top-[70px] left-0 w-full bg-white/95 border-b border-gray-200 backdrop-blur-lg transition-all duration-300 overflow-hidden ${
           isOpen ? 'max-h-[500px] py-6 shadow-xl' : 'max-h-0 py-0'
         }`}
       >
@@ -110,8 +110,8 @@ const Navbar = () => {
             <WaveLink
               key={link.path}
               to={link.path}
-              className={`font-semibold text-base py-2 border-b border-white/5 transition-colors ${
-                isActive(link.path) ? 'text-primary' : 'text-white hover:text-primary'
+              className={`font-semibold text-base py-2 border-b border-gray-100 transition-colors ${
+                isActive(link.path) ? 'text-primary' : 'text-secondary-dark hover:text-primary'
               }`}
             >
               {link.name}

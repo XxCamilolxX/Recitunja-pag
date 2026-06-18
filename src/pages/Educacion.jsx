@@ -80,10 +80,15 @@ const Educacion = () => {
             </p>
           </div>
 
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-4xl mx-auto grid gap-8">
             <img 
-              src="/volante-caracterizacion.jpg" 
-              alt="Volante de Caracterización - Cómo reciclar correctamente" 
+              src="/separando-paso-a-paso.png" 
+              alt="Separando paso a paso - Educación ambiental" 
+              className="w-full h-auto rounded-3xl shadow-sm hover:shadow-md transition-shadow duration-300"
+            />
+            <img
+              src="/volante-caracterizacion.jpg"
+              alt="Volante de caracterizaciÃ³n ReciTunja"
               className="w-full h-auto rounded-3xl shadow-sm hover:shadow-md transition-shadow duration-300"
             />
           </div>

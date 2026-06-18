@@ -19,6 +19,11 @@ const Galeria = () => {
     { src: '/_MG_6921_1 Modificado.jpg', title: "Equipo Completo ReciTunja", desc: "Una asociación unida por el bienestar social y ambiental." }
   ];
 
+  const videos = [
+    { id: 'bzlRK5unP74', title: "ReciTunja en acción", desc: "Conoce nuestro trabajo diario en la ruta selectiva de Tunja." },
+    { id: 'IvbAoRYY0pM', title: "Impacto ambiental ReciTunja", desc: "El impacto positivo de nuestra labor en la comunidad tunjana." }
+  ];
+
   return (
     <div className="w-full">
       {/* Page Hero */}
@@ -114,6 +119,45 @@ const Galeria = () => {
               <div className="swiper-button-prev !text-black !w-10 !h-10 after:!text-xl bg-white rounded-full hidden md:flex hover:scale-110 transition-all shadow-md border border-gray-200"></div>
               <div className="swiper-button-next !text-black !w-10 !h-10 after:!text-xl bg-white rounded-full hidden md:flex hover:scale-110 transition-all shadow-md border border-gray-200"></div>
             </Swiper>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Videos Section */}
+      <section className="bg-cream pb-20 relative z-10">
+        <div className="max-w-[1200px] mx-auto px-4 md:px-8">
+          
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-primary font-bold mb-3">
+              <span className="w-6 h-[2px] bg-primary"></span>
+              Videos
+            </div>
+            <h2 className="text-3xl font-extrabold text-secondary-dark mb-4">Conócenos en video</h2>
+            <p className="text-gray-500 text-sm">
+              Mira de cerca nuestra labor diaria y el impacto positivo del reciclaje en Tunja.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {videos.map((video, index) => (
+              <div key={index} className="rounded-2xl overflow-hidden shadow-lg border border-gray-200/50 bg-white">
+                <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                  <iframe
+                    className="absolute top-0 left-0 w-full h-full"
+                    src={`https://www.youtube.com/embed/${video.id}`}
+                    title={video.title}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+                <div className="p-5">
+                  <h3 className="text-lg font-bold text-secondary-dark mb-1">{video.title}</h3>
+                  <p className="text-xs text-gray-500 leading-relaxed">{video.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
 
         </div>

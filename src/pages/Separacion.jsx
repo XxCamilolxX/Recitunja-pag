@@ -38,7 +38,7 @@ const Separacion = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="grid gap-10 max-w-6xl mx-auto">
             {/* Sí recibimos */}
             <img 
               src="/si-recibimos.png" 
@@ -47,13 +47,13 @@ const Separacion = () => {
             />
 
             {/* No recibimos */}
-            <div className="flex flex-col gap-6">
+            <div className="contents">
               <img 
                 src="/no-recibimos.png" 
                 alt="No recibimos" 
                 className="w-full h-auto rounded-3xl shadow-sm hover:shadow-md transition-shadow duration-300" 
               />
-              <div className="bg-rose-50 border border-rose-100/50 p-5 rounded-2xl text-sm text-rose-800 leading-relaxed italic">
+              <div className="max-w-3xl mx-auto bg-rose-50 border border-rose-100/50 p-5 rounded-2xl text-sm text-center text-rose-800 leading-relaxed italic">
                 <strong>Importante:</strong> Los residuos no aprovechables deben depositarse en el servicio de aseo ordinario de la ciudad de Tunja (Bolsa Negra) para su disposición final en relleno sanitario. No los mezcles con el reciclaje.
               </div>
             </div>

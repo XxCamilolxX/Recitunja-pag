@@ -28,7 +28,7 @@ const Footer = () => {
           {/* Logo */}
           <WaveLink to="/" className="flex items-center gap-2">
             <img 
-              src="/logo.png" 
+              src="/logo-recitunja-2-20.png" 
               alt="ReciTunja Logo" 
               className="h-[45px] object-cover rounded-full border border-white/10"
             />
