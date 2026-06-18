@@ -55,7 +55,7 @@ const AppLayout = ({ children }) => {
               style={{ opacity: 0 }}
             >
               <img 
-                src="/logo-recitunja-2-20.png" 
+                src="/logo.png" 
                 alt="ReciTunja Logo Intro" 
                 className="w-full h-full object-cover rounded-full"
               />
@@ -88,7 +88,7 @@ const AppLayout = ({ children }) => {
       >
         <div className="flex flex-col items-center">
           <img 
-            src="/logo-recitunja-2-20.png" 
+            src="/logo.png" 
             alt="Transition Logo" 
             className="w-16 h-16 rounded-full border-2 border-primary animate-pulse"
           />

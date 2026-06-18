@@ -22,9 +22,15 @@ const Inicio = () => {
     
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setReducedMotion(motionQuery.matches);
+    if (motionQuery.matches) {
+      setIsPlaying(false);
+    }
 
     const handleMotionChange = (e) => {
       setReducedMotion(e.matches);
+      if (e.matches) {
+        setIsPlaying(false);
+      }
     };
 
     handleResize();
@@ -39,22 +45,22 @@ const Inicio = () => {
 
   // Auto-play timer for carousel
   useEffect(() => {
-    if (!isPlaying) return;
+    if (!isPlaying || reducedMotion) return;
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % APROVECHABLES.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [isPlaying]);
+  }, [isPlaying, reducedMotion]);
 
   // GSAP animation when activeIndex changes
   useGSAP(() => {
-    if (!infoRef.current) return;
+    if (!infoRef.current || reducedMotion) return;
     gsap.fromTo(
       infoRef.current.querySelectorAll('.animate-fade'),
       { opacity: 0, y: 15 },
       { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power2.out' }
     );
-  }, [activeIndex]);
+  }, [activeIndex, reducedMotion]);
 
   const handlePrev = () => {
     setIsPlaying(false);
@@ -76,7 +82,13 @@ const Inicio = () => {
   };
 
   const activeMaterial = APROVECHABLES[activeIndex];
-  const wheelRotation = -90 - activeIndex * 40;
+  const materialCount = APROVECHABLES.length;
+  const orbitRadius = isMobile ? 124 : 390;
+  const orbitVerticalScale = isMobile ? 0.72 : 0.62;
+  const orbitIconSize = isMobile ? 44 : 58;
+  const activeImageSize = isMobile ? 180 : 330;
+  const orbitCenterLeft = isMobile ? '50%' : '43%';
+  const orbitCenterTop = isMobile ? '58%' : '28%';
 
   return (
     <div className="w-full">
@@ -98,7 +110,7 @@ const Inicio = () => {
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-3 leading-none drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]">
               <span className="text-primary">RECI</span>TUNJA
             </h1>
-            <p className="text-lg md:text-2xl italic font-light text-primary/90 mb-6 drop-shadow-[0_3px_14px_rgba(0,0,0,0.5)]">
+            <p className="text-lg md:text-2xl italic font-light text-white mb-6 drop-shadow-[0_3px_14px_rgba(0,0,0,0.5)]">
               Porque el medio ambiente eres tú
             </p>
 
@@ -142,7 +154,7 @@ const Inicio = () => {
         </div>
       </div>
 
-      {/* Wave Transition Marquee to Mission/Vision */}
+      {/* Wave Transition Marquee to Materials */}
       <div className="section-wave bg-primary text-cream">
         <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
           <path d="M0,30 C360,0 1080,60 1440,30 L1440,60 L0,60 Z" fill="currentColor"/>
@@ -150,155 +162,99 @@ const Inicio = () => {
       </div>
 
       {/* ==========================================
-           MISIÓN Y VISIÓN SECTION
+           MATERIALS CAROUSEL SECTION
          ========================================== */}
-      <section className="bg-cream py-20 relative z-10">
-        <div className="max-w-[1200px] mx-auto px-4 md:px-8">
-          
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-primary font-bold mb-3">
-              <span className="w-6 h-[2px] bg-primary"></span>
-              Nuestra Identidad
-            </div>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-secondary-dark mb-4">Misión y Visión</h2>
-          </div>
+      <section className="bg-cream relative z-20 overflow-hidden py-16 md:py-20 lg:py-24">
+        <div 
+          className="hidden lg:block absolute inset-y-8 lg:right-[-24%] lg:w-[66%] pointer-events-none"
+          style={{
+            borderRadius: isMobile ? '46px' : '999px 0 0 999px',
+            background: 'radial-gradient(circle at 28% 46%, rgba(91, 191, 122, 0.22) 0%, rgba(91, 191, 122, 0) 34%), linear-gradient(135deg, #245b42 0%, #143526 100%)',
+            boxShadow: 'inset 0 0 90px rgba(0, 0, 0, 0.22), 0 30px 80px rgba(30, 77, 56, 0.14)'
+          }}
+          aria-hidden="true"
+        />
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* Misión */}
-            <div className="bg-white p-8 md:p-10 rounded-3xl border border-gray-200/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-1.5 before:bg-gradient-to-r before:from-primary before:to-emerald-400">
-              <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl mb-6">
-                <i className="fa-solid fa-bullseye"></i>
-              </div>
-              <h3 className="text-2xl font-extrabold text-secondary-dark mb-4">Misión</h3>
-              <p className="text-gray-600 text-sm md:text-base leading-relaxed">
-                Mejorar la calidad de vida de los recicladores de oficio y de la comunidad tunjana mediante la gestión integral y el aprovechamiento adecuado de los residuos sólidos, operando rutas selectivas domiciliarias y planes de reciclaje empresarial e institucional con capacitación a la comunidad y recolección selectiva en la fuente.
-              </p>
-            </div>
-
-            {/* Visión */}
-            <div className="bg-white p-8 md:p-10 rounded-3xl border border-gray-200/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-1.5 before:bg-gradient-to-r before:from-emerald-400 before:to-primary">
-              <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl mb-6">
-                <i className="fa-solid fa-eye"></i>
-              </div>
-              <h3 className="text-2xl font-extrabold text-secondary-dark mb-4">Visión</h3>
-              <p className="text-gray-600 text-sm md:text-base leading-relaxed">
-                Ser la organización líder en la gestión integral de residuos sólidos aprovechables en la ciudad de Tunja, reconocida por su compromiso con el medio ambiente, la dignificación de la labor del reciclador y la construcción de una cultura de economía circular que transforme positivamente a nuestra comunidad.
-              </p>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* Wave Transition Mission to Materials */}
-      <div className="section-wave bg-cream text-secondary-dark">
-        <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="currentColor"/>
-        </svg>
-      </div>
-
-      {/* ==========================================
-           MATERIALES CAROUSEL SECTION (Semicircle Orbit Slider)
-         ========================================== */}
-      <section className="w-full bg-secondary-dark text-white py-20 relative z-20 overflow-hidden">
-        {/* Background ambient light */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full filter blur-[150px] pointer-events-none" />
+        <div 
+          className="absolute top-10 left-[-120px] h-[260px] w-[260px] rounded-full bg-white/55 blur-3xl pointer-events-none"
+          aria-hidden="true"
+        />
 
         <div className="max-w-[1200px] mx-auto px-4 md:px-8 relative z-10">
-          
-          {/* Header area */}
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <img
-              src="/logo-recitunja-2-20.png"
-              alt="ReciTunja"
-              className="w-44 md:w-60 h-auto mx-auto mb-8 drop-shadow-[0_16px_40px_rgba(0,0,0,0.25)]"
-            />
+          <div className="max-w-[640px] mb-8 md:mb-10">
             <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-primary font-bold mb-3">
               <span className="w-6 h-[2px] bg-primary"></span>
               Materiales Aprovechables
             </div>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4">
+            <h2 className="text-3xl md:text-5xl font-extrabold text-secondary-dark mb-3 leading-tight">
               ¿Qué podemos reciclar?
             </h2>
-            <p className="text-white/60 text-sm md:text-base">
+            <p className="text-secondary-dark/65 text-sm md:text-base leading-relaxed">
               Conoce los 9 grupos de materiales que la ruta selectiva de ReciTunja aprovecha diariamente.
             </p>
           </div>
 
-          {/* Semicircle Carousel Container */}
-          <div className="grid lg:grid-cols-12 gap-12 items-center">
-            
-            {/* Columna Izquierda: Información del Material Activo y Controles */}
-            <div ref={infoRef} className="lg:col-span-5 flex flex-col justify-center min-h-[460px] lg:min-h-[500px]">
-              
-              {/* Grupo Activo Pill */}
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+            <div ref={infoRef} className="lg:col-span-5 flex flex-col justify-center min-h-[340px] lg:min-h-[440px]" aria-live="polite">
               <div 
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase mb-4 w-fit animate-fade" 
-                style={{ backgroundColor: `${activeMaterial.color}20`, color: activeMaterial.color }}
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase mb-4 w-fit animate-fade shadow-sm" 
+                style={{ backgroundColor: `${activeMaterial.color}24`, color: activeMaterial.color }}
               >
-                <i className={`fa-solid ${activeMaterial.icon}`}></i> Grupo {activeIndex + 1} de {APROVECHABLES.length}
+                <i className={`fa-solid ${activeMaterial.icon}`}></i> Grupo {activeIndex + 1} de {materialCount}
               </div>
 
-              {/* Título Principal */}
-              <h3 className="text-3xl md:text-4xl font-extrabold text-white mb-4 leading-tight animate-fade">
+              <h3 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-secondary-dark mb-4 leading-[1.06] animate-fade">
                 {activeMaterial.title}
               </h3>
 
-              {/* Ítems incluidos */}
               <div className="mb-6 animate-fade">
-                <h4 className="text-[10px] uppercase tracking-wider text-white/40 mb-1.5">Materiales Incluidos</h4>
-                <p className="text-base font-semibold text-primary leading-relaxed">
+                <h4 className="text-[10px] uppercase tracking-[0.2em] text-secondary-dark/45 mb-2 font-black">Materiales incluidos</h4>
+                <p className="text-base md:text-lg font-bold leading-relaxed" style={{ color: activeMaterial.color }}>
                   {activeMaterial.items}
                 </p>
               </div>
 
-              {/* Detalle/Consejo */}
               <div 
-                className="bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-2xl p-5 mb-8 text-sm text-white/70 leading-relaxed italic animate-fade"
-                style={{ borderLeft: `4px solid ${activeMaterial.color}` }}
+                className="bg-white/78 backdrop-blur-sm border border-white/80 rounded-2xl p-5 mb-7 text-sm md:text-base text-secondary-dark/72 leading-relaxed italic animate-fade shadow-[0_16px_45px_rgba(30,77,56,0.08)]"
+                style={{ borderLeft: `5px solid ${activeMaterial.color}` }}
               >
-                <strong>Consejo:</strong> {activeMaterial.details}
+                <strong className="text-secondary-dark">Consejo:</strong> {activeMaterial.details}
               </div>
 
-              {/* Controles de Navegación */}
-              <div className="flex items-center gap-4 animate-fade">
-                {/* Botón Prev */}
+              <div className="flex flex-wrap items-center gap-3 animate-fade">
                 <button 
                   onClick={handlePrev}
-                  className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 hover:border-primary transition-all duration-300 active:scale-95 cursor-pointer"
+                  className="w-11 h-11 rounded-full border border-secondary-dark/18 bg-white/60 flex items-center justify-center text-secondary-dark hover:bg-white hover:border-primary transition-all duration-300 active:scale-95 cursor-pointer shadow-sm"
                   aria-label="Anterior material"
                 >
                   <i className="fa-solid fa-chevron-left text-sm"></i>
                 </button>
 
-                {/* Botón Play/Pause */}
                 <button 
                   onClick={() => setIsPlaying(!isPlaying)}
-                  className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 hover:border-primary transition-all duration-300 active:scale-95 cursor-pointer"
+                  className="w-11 h-11 rounded-full border border-secondary-dark/18 bg-white/60 flex items-center justify-center text-secondary-dark hover:bg-white hover:border-primary transition-all duration-300 active:scale-95 cursor-pointer shadow-sm"
                   aria-label={isPlaying ? "Pausar reproducción" : "Reproducir automáticamente"}
                 >
                   <i className={`fa-solid ${isPlaying ? 'fa-pause' : 'fa-play'} text-sm`}></i>
                 </button>
 
-                {/* Botón Next */}
                 <button 
                   onClick={handleNext}
-                  className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 hover:border-primary transition-all duration-300 active:scale-95 cursor-pointer"
+                  className="w-11 h-11 rounded-full border border-secondary-dark/18 bg-white/60 flex items-center justify-center text-secondary-dark hover:bg-white hover:border-primary transition-all duration-300 active:scale-95 cursor-pointer shadow-sm"
                   aria-label="Siguiente material"
                 >
                   <i className="fa-solid fa-chevron-right text-sm"></i>
                 </button>
 
-                {/* Paginación - Bullets */}
-                <div className="flex gap-2 ml-4">
+                <div className="flex flex-wrap gap-2 ml-0 md:ml-3">
                   {APROVECHABLES.map((_, i) => (
                     <button
                       key={i}
                       onClick={() => handleIconClick(i)}
                       className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
                         i === activeIndex 
-                          ? 'w-6' 
-                          : 'w-2.5 bg-white/20 hover:bg-white/40'
+                          ? 'w-7' 
+                          : 'w-2.5 bg-secondary-dark/14 hover:bg-secondary-dark/30'
                       }`}
                       style={{ backgroundColor: i === activeIndex ? activeMaterial.color : undefined }}
                       aria-label={`Ir al material ${i + 1}`}
@@ -308,62 +264,75 @@ const Inicio = () => {
               </div>
             </div>
 
-            {/* Columna Derecha: Órbita Semicircular */}
-            <div className="lg:col-span-7 flex justify-center items-center relative overflow-hidden h-[380px] md:h-[500px] w-full">
-              
-              {/* Trayectoria semicircular punteada */}
-              <div 
-                className="absolute rounded-full border border-dashed border-white/15 pointer-events-none"
-                style={{ 
-                  width: isMobile ? '320px' : '500px',
-                  height: isMobile ? '320px' : '500px',
-                  bottom: isMobile ? '-160px' : '-250px' 
+            <div className="lg:col-span-7 relative h-[350px] md:h-[500px] lg:h-[540px] w-full overflow-visible">
+              <div
+                className="absolute inset-y-0 right-[-46%] w-[118%] rounded-[42px] pointer-events-none lg:hidden"
+                style={{
+                  background: 'radial-gradient(circle at 35% 45%, rgba(91, 191, 122, 0.22) 0%, rgba(91, 191, 122, 0) 36%), linear-gradient(135deg, #245b42 0%, #143526 100%)',
+                  boxShadow: 'inset 0 0 70px rgba(0, 0, 0, 0.2), 0 24px 60px rgba(30, 77, 56, 0.12)'
                 }}
+                aria-hidden="true"
               />
 
-              {/* Centro de la órbita — Imagen del material activo */}
+              <div
+                className="hidden lg:block absolute top-[-220px] bottom-[-220px] z-[15] bg-cream pointer-events-none"
+                style={{
+                  left: '-100vw',
+                  width: 'calc(100vw + 205px)',
+                  borderTopRightRadius: '999px',
+                  borderBottomRightRadius: '999px'
+                }}
+                aria-hidden="true"
+              />
+
               <div 
-                className="absolute rounded-full bg-secondary-dark flex items-center justify-center z-20 border-4 shadow-2xl transition-all duration-500 overflow-hidden"
+                className="absolute rounded-full border border-dashed border-white/24 pointer-events-none"
                 style={{ 
-                  width: isMobile ? '170px' : '260px',
-                  height: isMobile ? '170px' : '260px',
+                  left: orbitCenterLeft,
+                  top: orbitCenterTop,
+                  width: isMobile ? '310px' : `${orbitRadius * 2}px`,
+                  height: isMobile ? '310px' : `${orbitRadius * 2 * orbitVerticalScale}px`,
+                  transform: 'translate(-50%, -50%)',
+                  clipPath: isMobile ? 'inset(0 0 46% 0)' : 'inset(0 0 12% 0)'
+                }}
+                aria-hidden="true"
+              />
+
+              <div 
+                className="absolute z-30 rounded-full bg-cream flex items-center justify-center overflow-hidden border-[6px] transition-all duration-500"
+                style={{ 
+                  left: orbitCenterLeft,
+                  top: orbitCenterTop,
+                  width: `${activeImageSize}px`,
+                  height: `${activeImageSize}px`,
+                  transform: 'translate(-50%, -50%)',
                   borderColor: activeMaterial.color,
-                  bottom: isMobile ? '18px' : '28px',
-                  boxShadow: `0 -10px 40px ${activeMaterial.color}25`
+                  boxShadow: `0 28px 78px rgba(0, 0, 0, 0.22), 0 0 0 14px rgba(238, 248, 242, 0.42), 0 0 42px ${activeMaterial.color}42`
                 }}
               >
-                {/* Ondas concéntricas (efecto ripple de fondo) */}
                 <div 
-                  className="absolute inset-0 rounded-full animate-ping opacity-10" 
-                  style={{ backgroundColor: activeMaterial.color, animationDuration: '3s' }} 
+                  className="absolute inset-8 rounded-full opacity-40 pointer-events-none"
+                  style={{ background: `radial-gradient(circle, ${activeMaterial.color}35 0%, transparent 70%)` }}
+                  aria-hidden="true"
                 />
-
-                {/* Imagen del material seleccionado */}
-                <div className="flex items-center justify-center p-5 md:p-8 w-full h-full relative z-10">
-                  <img 
-                    src={activeMaterial.image} 
-                    alt={activeMaterial.shortTitle}
-                    className="w-full h-full object-contain drop-shadow-2xl transition-transform duration-500"
-                  />
-                </div>
+                <img 
+                  src={activeMaterial.image} 
+                  alt={activeMaterial.shortTitle}
+                  className="relative z-10 w-[78%] h-[78%] object-contain drop-shadow-[0_16px_18px_rgba(0,0,0,0.2)] transition-transform duration-500 hover:scale-105"
+                />
               </div>
 
-              {/* Rueda de órbita giratoria */}
               <div 
-                className="absolute rounded-full flex items-center justify-center z-10 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
-                style={{ 
-                  width: isMobile ? '320px' : '500px',
-                  height: isMobile ? '320px' : '500px',
-                  bottom: isMobile ? '-160px' : '-250px',
-                  transform: `rotate(${wheelRotation}deg)`
-                }}
+                className="absolute z-10"
+                style={{ left: orbitCenterLeft, top: orbitCenterTop, width: 0, height: 0 }}
               >
                 {APROVECHABLES.map((mat, idx) => {
-                  const itemAngle = idx * 40; // Spacing es 360/9 = 40
-                  const radius = isMobile ? 160 : 250;
-                  const rad = (itemAngle * Math.PI) / 180;
-                  const x = Math.cos(rad) * radius;
-                  const y = Math.sin(rad) * radius;
+                  const rawOffset = (idx - activeIndex + materialCount) % materialCount;
+                  const centeredOffset = rawOffset > materialCount / 2 ? rawOffset - materialCount : rawOffset;
+                  const angle = -90 + centeredOffset * (isMobile ? 22 : 40);
+                  const rad = (angle * Math.PI) / 180;
+                  const x = Math.cos(rad) * orbitRadius;
+                  const y = Math.sin(rad) * orbitRadius * orbitVerticalScale;
                   const isActive = idx === activeIndex;
                   const isHovered = hoveredIcon === idx;
 
@@ -373,60 +342,66 @@ const Inicio = () => {
                       onClick={() => handleIconClick(idx)}
                       onMouseEnter={() => setHoveredIcon(idx)}
                       onMouseLeave={() => setHoveredIcon(null)}
-                      className={`absolute rounded-full flex items-center justify-center cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] focus:outline-none overflow-hidden ${
+                      className={`absolute rounded-full flex items-center justify-center cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] focus:outline-none focus:ring-2 focus:ring-white/80 overflow-visible ${
                         isActive 
-                          ? 'bg-white shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-115 z-30' 
-                          : 'bg-white/10 border border-white/20 hover:bg-white/20 hover:scale-105 z-10'
+                          ? 'bg-white z-30 shadow-[0_18px_40px_rgba(0,0,0,0.18)]' 
+                          : 'bg-white/18 border border-white/22 hover:bg-white/30 z-10'
                       }`}
                       style={{
-                        width: isMobile ? '46px' : '60px',
-                        height: isMobile ? '46px' : '60px',
-                        top: '50%',
-                        left: '50%',
-                        transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${-wheelRotation}deg)`,
+                        width: `${isActive ? orbitIconSize + 12 : orbitIconSize}px`,
+                        height: `${isActive ? orbitIconSize + 12 : orbitIconSize}px`,
+                        transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
                         borderColor: isActive ? mat.color : undefined,
+                        boxShadow: isActive ? `0 0 0 4px ${mat.color}55, 0 18px 42px rgba(0,0,0,0.18)` : undefined,
                       }}
                       title={mat.shortTitle}
+                      aria-label={`Ver ${mat.shortTitle}`}
                     >
                       <img 
                         src={mat.image} 
-                        alt={mat.shortTitle}
-                        className={`w-[70%] h-[70%] object-contain transition-all duration-300 ${isActive ? '' : 'opacity-70 hover:opacity-100'}`}
+                        alt=""
+                        className={`w-[72%] h-[72%] object-contain transition-all duration-300 pointer-events-none ${
+                          isActive ? 'opacity-100 scale-105' : 'opacity-80 hover:opacity-100'
+                        }`}
                       />
 
-                      {/* Tooltip on Hover */}
-                      <div 
-                        className={`absolute bottom-full mb-3 px-2.5 py-1 bg-secondary-dark/95 border border-white/10 text-white text-[10px] font-bold rounded-lg whitespace-nowrap shadow-xl pointer-events-none transition-all duration-300 ${
+                      <span 
+                        className={`absolute bottom-full left-1/2 mb-3 -translate-x-1/2 px-2.5 py-1 bg-secondary-dark/95 border border-white/10 text-white text-[10px] font-bold rounded-lg whitespace-nowrap shadow-xl pointer-events-none transition-all duration-300 ${
                           isHovered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-2 scale-90'
                         }`}
                         style={{ borderBottomColor: mat.color }}
                       >
                         {mat.shortTitle}
-                        <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-4 border-x-transparent border-t-4 border-t-secondary-dark/95" />
-                      </div>
+                        <span className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-4 border-x-transparent border-t-4 border-t-secondary-dark/95" />
+                      </span>
                     </button>
                   );
                 })}
               </div>
 
+              <div
+                className="hidden lg:block absolute left-[-80vw] right-[-80vw] bottom-[-100px] h-[116px] bg-cream z-[15] pointer-events-none"
+                aria-hidden="true"
+              />
+
+              <div 
+                className="hidden lg:block absolute right-3 bottom-3 md:right-10 md:bottom-12 z-20 rounded-2xl bg-white/12 border border-white/18 backdrop-blur-md px-4 py-3 text-white shadow-xl max-w-[220px]"
+              >
+                <p className="text-[10px] uppercase tracking-[0.22em] text-white/60 font-black mb-1">Ruta selectiva</p>
+                <p className="text-sm font-bold leading-snug">Materiales limpios, secos y separados desde la fuente.</p>
+              </div>
             </div>
-
           </div>
-
         </div>
       </section>
 
-      {/* Wave Transition Sticky -> Separation & Tips Section */}
-      <div className="section-wave bg-secondary-dark text-cream">
-        <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="currentColor"/>
-        </svg>
-      </div>
+      {/* Separador sutil entre secciones cream */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200/60 to-transparent" />
 
       {/* ==========================================
            CONSOLIDATED INFORMATION SECTION (Separation & Tips)
          ========================================== */}
-      <section className="bg-cream py-20 relative z-10 text-gray-800">
+      <section className="bg-cream py-20 relative z-20 text-gray-800">
         <div className="max-w-[1200px] mx-auto px-4 md:px-8">
           
           <div className="grid lg:grid-cols-2 gap-16 items-start">
