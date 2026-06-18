@@ -89,6 +89,9 @@ const Inicio = () => {
   const activeImageSize = isMobile ? 180 : 330;
   const orbitCenterLeft = isMobile ? '50%' : '43%';
   const orbitCenterTop = isMobile ? '58%' : '28%';
+  const orbitWidth = orbitRadius * 2;
+  const orbitHeight = orbitRadius * 2 * orbitVerticalScale;
+  const orbitArcPath = `M ${orbitRadius} 0 A ${orbitRadius} ${orbitRadius * orbitVerticalScale} 0 0 1 ${orbitRadius} ${orbitHeight}`;
 
   return (
     <div className="w-full">
@@ -274,29 +277,27 @@ const Inicio = () => {
                 aria-hidden="true"
               />
 
-              <div
-                className="hidden lg:block absolute top-[-220px] bottom-[-220px] z-[15] bg-cream pointer-events-none"
-                style={{
-                  left: '-100vw',
-                  width: 'calc(100vw + 205px)',
-                  borderTopRightRadius: '999px',
-                  borderBottomRightRadius: '999px'
-                }}
-                aria-hidden="true"
-              />
-
-              <div 
-                className="absolute rounded-full border border-dashed border-white/24 pointer-events-none"
+              <svg
+                className="absolute z-10 pointer-events-none overflow-visible"
+                viewBox={`0 0 ${orbitWidth} ${orbitHeight}`}
                 style={{ 
                   left: orbitCenterLeft,
                   top: orbitCenterTop,
-                  width: isMobile ? '310px' : `${orbitRadius * 2}px`,
-                  height: isMobile ? '310px' : `${orbitRadius * 2 * orbitVerticalScale}px`,
-                  transform: 'translate(-50%, -50%)',
-                  clipPath: isMobile ? 'inset(0 0 46% 0)' : 'inset(0 0 12% 0)'
+                  width: `${orbitWidth}px`,
+                  height: `${orbitHeight}px`,
+                  transform: 'translate(-50%, -50%)'
                 }}
                 aria-hidden="true"
-              />
+              >
+                <path
+                  d={orbitArcPath}
+                  fill="none"
+                  stroke="rgba(255,255,255,0.24)"
+                  strokeWidth="1"
+                  strokeDasharray="5 9"
+                  strokeLinecap="round"
+                />
+              </svg>
 
               <div 
                 className="absolute z-30 rounded-full bg-cream flex items-center justify-center overflow-hidden border-[6px] transition-all duration-500"
@@ -335,6 +336,7 @@ const Inicio = () => {
                   const y = Math.sin(rad) * orbitRadius * orbitVerticalScale;
                   const isActive = idx === activeIndex;
                   const isHovered = hoveredIcon === idx;
+                  const isHiddenByWhiteSide = x < -8;
 
                   return (
                     <button
@@ -353,6 +355,8 @@ const Inicio = () => {
                         transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
                         borderColor: isActive ? mat.color : undefined,
                         boxShadow: isActive ? `0 0 0 4px ${mat.color}55, 0 18px 42px rgba(0,0,0,0.18)` : undefined,
+                        opacity: isHiddenByWhiteSide ? 0 : undefined,
+                        pointerEvents: isHiddenByWhiteSide ? 'none' : undefined,
                       }}
                       title={mat.shortTitle}
                       aria-label={`Ver ${mat.shortTitle}`}
@@ -378,11 +382,6 @@ const Inicio = () => {
                   );
                 })}
               </div>
-
-              <div
-                className="hidden lg:block absolute left-[-80vw] right-[-80vw] bottom-[-100px] h-[116px] bg-cream z-[15] pointer-events-none"
-                aria-hidden="true"
-              />
 
               <div 
                 className="hidden lg:block absolute right-3 bottom-3 md:right-10 md:bottom-12 z-20 rounded-2xl bg-white/12 border border-white/18 backdrop-blur-md px-4 py-3 text-white shadow-xl max-w-[220px]"
