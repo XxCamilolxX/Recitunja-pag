@@ -1,10 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import AppLayout from './components/AppLayout';
 import { WaveTransitionProvider } from './components/WaveTransitionContext';
 import Inicio from './pages/Inicio';
 import LaEmpresa from './pages/LaEmpresa';
 import Galeria from './pages/Galeria';
+import RutasHorarios from './pages/RutasHorarios';
 import Educacion from './pages/Educacion';
 import Separacion from './pages/Separacion';
 import Documentos from './pages/Documentos';
@@ -20,6 +21,7 @@ function App() {
             <Route path="/" element={<Inicio />} />
             <Route path="/la-empresa" element={<LaEmpresa />} />
             <Route path="/galeria" element={<Galeria />} />
+            <Route path="/rutas-horarios" element={<RutasHorarios />} />
             <Route path="/educacion" element={<Educacion />} />
             <Route path="/separacion" element={<Separacion />} />
             <Route path="/documentos" element={<Documentos />} />

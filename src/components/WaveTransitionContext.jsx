@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 
 const WaveTransitionContext = createContext();
@@ -8,6 +8,7 @@ export const useWaveTransition = () => useContext(WaveTransitionContext);
 
 export const WaveTransitionProvider = ({ children }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isTransitioning, setIsTransitioning] = useState(false);
   const transitionOverlayRef = useRef(null);
   const navbarRef = useRef(null);
@@ -16,7 +17,7 @@ export const WaveTransitionProvider = ({ children }) => {
     if (isTransitioning) return;
     setIsTransitioning(true);
 
-    const currentPath = window.location.pathname;
+    const currentPath = location.pathname;
     
     if (currentPath === path) {
       setIsTransitioning(false);
@@ -91,7 +92,7 @@ export const WaveLink = ({ to, children, className, ...props }) => {
   };
 
   return (
-    <a href={to} onClick={handleClick} className={className} {...props}>
+    <a href={`#${to}`} onClick={handleClick} className={className} {...props}>
       {children}
     </a>
   );

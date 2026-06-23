@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { WaveLink, useWaveTransition } from './WaveTransitionContext';
+import { NAV_LINKS } from '../constants/data';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,16 +33,6 @@ const Navbar = () => {
     return location.pathname.startsWith(path);
   };
 
-  const navLinks = [
-    { name: 'Inicio', path: '/' },
-    { name: 'La empresa', path: '/la-empresa' },
-    { name: 'Galería', path: '/galeria' },
-    { name: 'Educación ambiental', path: '/educacion' },
-    { name: 'Separación', path: '/separacion' },
-    { name: 'Documentos legales', path: '/documentos' },
-    { name: 'PQRS', path: '/pqrs' },
-  ];
-
   return (
     <header 
       ref={navbarRef}
@@ -61,7 +52,7 @@ const Navbar = () => {
 
         {/* Desktop Links */}
         <nav className="hidden xl:flex items-center gap-8">
-          {navLinks.map((link) => (
+          {NAV_LINKS.map((link) => (
             <WaveLink
               key={link.path}
               to={link.path}
@@ -106,7 +97,7 @@ const Navbar = () => {
         }`}
       >
         <div className="max-w-[1200px] mx-auto px-6 flex flex-col gap-4">
-          {navLinks.map((link) => (
+          {NAV_LINKS.map((link) => (
             <WaveLink
               key={link.path}
               to={link.path}

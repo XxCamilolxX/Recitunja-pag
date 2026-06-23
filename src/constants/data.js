@@ -109,46 +109,35 @@ export const APROVECHABLES = [
   }
 ];
 
-export const NO_APROVECHABLES = [
-  { id: 1, text: "Icopor (poliestireno expandido)." },
-  { id: 2, text: "Plásticos chirriones (envolturas, paquetes de frituras, galletas, confitería)." },
-  { id: 3, text: "Plásticos de un solo uso (platos, vasos, cubiertos desechables, pitillos)." },
-  { id: 4, text: "Residuos reciclables sucios, mojados o contaminados con comida/grasa." },
-  { id: 5, text: "Madera o mueblería vieja." },
-  { id: 6, text: "Vidrio plano (vidrios de ventanas, espejos, parabrisas)." },
-  { id: 7, text: "Residuos sanitarios, biológicos o químicos (pañales, papel higiénico usado, tapabocas)." },
-  { id: 8, text: "Ropa vieja, textiles o zapatos." }
+
+
+export const GALLERY_SLIDES = [
+  { src: '/_MG_6829_2.jpg', title: "Equipo ReciTunja", desc: "El corazón y la fuerza laboral de nuestra asociación." },
+  { src: '/_MG_6831_1.jpg', title: "Actividades de Reciclaje", desc: "Clasificación meticulosa en nuestra estación de servicios." },
+  { src: '/_MG_6848_1.jpg', title: "Jornada de Recolección", desc: "Servicio de reciclaje empresarial certificado." },
+  { src: '/_MG_6852_1.jpg', title: "Nuestro Equipo en Acción", desc: "Dignificando y profesionalizando la labor del reciclador." },
+  { src: '/_MG_6872_1.jpg', title: "Labores de Clasificación", desc: "Asegurando altos estándares de pureza en materiales." },
+  { src: '/_MG_6892_1.jpg', title: "Rutas Selectivas Tunja", desc: "Recorremos los barrios recogiendo tu bolsa azul." },
+  { src: '/_MG_6921_1 Modificado.jpg', title: "Equipo Completo ReciTunja", desc: "Una asociación unida por el bienestar social y ambiental." }
 ];
 
-export const TIPS_RECICLAJE = [
-  {
-    id: 1,
-    emoji: "🧴",
-    title: "Enjuaga antes de entregar",
-    text: "Las bolsas plásticas, como las de las carnes o frascos de lácteos, requieren una pequeña enjuagada rápida. Debes dejarlas secar y luego entregarlas en la bolsa azul."
-  },
-  {
-    id: 2,
-    emoji: "🥚",
-    title: "Cubetas de huevo impecables",
-    text: "Las cubetas de cartón para huevos deben entregarse completamente limpias, sin rotos y sin estar aplastadas para facilitar su reutilización directa."
-  },
-  {
-    id: 3,
-    emoji: "🧃",
-    title: "Manejo adecuado del Tetra Pack",
-    text: "Las cajas de leche y jugos son bienvenidos. Abre las pestañas de las esquinas, aplánalas para que ocupen menos espacio, enjuágalas por dentro y déjalas secar antes de entregarlas."
-  },
-  {
-    id: 4,
-    emoji: "♻️",
-    title: "Separar desde la fuente",
-    text: "Mantén una bolsa azul destinada exclusivamente para los materiales aprovechables secos y limpios. Esto evita que se contaminen con los residuos húmedos u orgánicos."
-  },
-  {
-    id: 5,
-    emoji: "📦",
-    title: "Cajas compactas",
-    text: "Desarma y aplana todas las cajas de cartón. Esto optimiza el almacenamiento en tu hogar y facilita enormemente el transporte para los recicladores."
-  }
+export const GALLERY_VIDEOS = [
+  { id: 'bzlRK5unP74', title: "ReciTunja en acción", desc: "Conoce nuestro trabajo diario en la ruta selectiva de Tunja." },
+  { id: 'IvbAoRYY0pM', title: "Impacto ambiental ReciTunja", desc: "El impacto positivo de nuestra labor en la comunidad tunjana." }
+];
+
+export const NAV_LINKS = [
+  { name: 'Inicio', path: '/' },
+  { name: 'La empresa', path: '/la-empresa' },
+  { name: 'Galería', path: '/galeria' },
+  { name: 'Rutas y horarios', path: '/rutas-horarios' },
+  { name: 'Educación ambiental', path: '/educacion' },
+  { name: 'Separación', path: '/separacion' },
+  { name: 'Documentos legales', path: '/documentos' },
+  { name: 'PQRS', path: '/pqrs' },
+];
+
+export const FOOTER_LINKS = [
+  ...NAV_LINKS,
+  { name: 'Contacto', path: '/contacto' },
 ];

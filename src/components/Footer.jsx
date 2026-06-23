@@ -1,23 +1,12 @@
 import React from 'react';
 import { WaveLink } from './WaveTransitionContext';
+import { FOOTER_LINKS } from '../constants/data';
 
 const Footer = () => {
   const socialLinks = [
     { name: 'Facebook', url: 'https://www.facebook.com/share/1HF2E2ewop/', icon: 'fa-brands fa-facebook-f' },
-    { name: 'Twitter X', url: 'https://x.com/ReciTunja', icon: 'fa-brands fa-x-twitter' },
+    { name: 'X', url: 'https://x.com/ReciTunja', label: 'X' },
     { name: 'Instagram', url: 'https://www.instagram.com/asociacion_recitunja', icon: 'fa-brands fa-instagram' },
-    { name: 'RSS', url: 'https://www.recitunja.com/feed/', icon: 'fa-solid fa-rss' },
-  ];
-
-  const links = [
-    { name: 'Inicio', path: '/' },
-    { name: 'La empresa', path: '/la-empresa' },
-    { name: 'Galería', path: '/galeria' },
-    { name: 'Educación ambiental', path: '/educacion' },
-    { name: 'Separación', path: '/separacion' },
-    { name: 'Documentos', path: '/documentos' },
-    { name: 'PQRS', path: '/pqrs' },
-    { name: 'Contacto', path: '/contacto' },
   ];
 
   return (
@@ -25,18 +14,9 @@ const Footer = () => {
       <div className="max-w-[1200px] mx-auto px-4 md:px-8 flex flex-col items-center">
         {/* Content Wrapper */}
         <div className="w-full flex flex-col md:flex-row justify-between items-center gap-8 mb-8 pb-8 border-b border-white/5">
-          {/* Logo */}
-          <WaveLink to="/" className="flex items-center gap-2">
-            <img 
-              src="/logo-recitunja-2-20.png" 
-              alt="ReciTunja Logo" 
-              className="h-[45px] object-cover rounded-full border border-white/10"
-            />
-          </WaveLink>
-
           {/* Links */}
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
-            {links.map((link) => (
+            {FOOTER_LINKS.map((link) => (
               <WaveLink 
                 key={link.path} 
                 to={link.path}
@@ -58,7 +38,11 @@ const Footer = () => {
                 aria-label={social.name}
                 className="w-10 h-10 rounded-full bg-white/5 text-white flex items-center justify-center text-sm transition-all duration-300 hover:bg-primary hover:text-secondary-dark hover:-translate-y-1"
               >
-                <i className={social.icon}></i>
+                {social.icon ? (
+                  <i className={social.icon}></i>
+                ) : (
+                  <span className="font-black text-[13px] leading-none">X</span>
+                )}
               </a>
             ))}
           </div>

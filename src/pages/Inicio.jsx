@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { APROVECHABLES, NO_APROVECHABLES, TIPS_RECICLAJE } from '../constants/data';
+import { APROVECHABLES } from '../constants/data';
+import WaveDivider from '../components/ui/WaveDivider';
 
 const Inicio = () => {
-  const [activeTip, setActiveTip] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [hoveredIcon, setHoveredIcon] = useState(null);
@@ -75,10 +75,6 @@ const Inicio = () => {
   const handleIconClick = (idx) => {
     setIsPlaying(false);
     setActiveIndex(idx);
-  };
-
-  const toggleTip = (id) => {
-    setActiveTip(activeTip === id ? null : id);
   };
 
   const activeMaterial = APROVECHABLES[activeIndex];
@@ -158,11 +154,7 @@ const Inicio = () => {
       </div>
 
       {/* Wave Transition Marquee to Materials */}
-      <div className="section-wave bg-primary text-cream">
-        <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path d="M0,30 C360,0 1080,60 1440,30 L1440,60 L0,60 Z" fill="currentColor"/>
-        </svg>
-      </div>
+      <WaveDivider from="bg-primary" to="text-cream" />
 
       {/* ==========================================
            MATERIALS CAROUSEL SECTION
@@ -394,141 +386,7 @@ const Inicio = () => {
         </div>
       </section>
 
-      {/* Separador sutil entre secciones cream */}
-      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200/60 to-transparent" />
-
-      {/* ==========================================
-           CONSOLIDATED INFORMATION SECTION (Separation & Tips)
-         ========================================== */}
-      <section className="bg-cream py-20 relative z-20 text-gray-800">
-        <div className="max-w-[1200px] mx-auto px-4 md:px-8">
-          
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
-            
-            {/* LEFT COLUMN: Environmental Tips (Buenas Prácticas) */}
-            <div className="flex flex-col gap-6">
-              <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-primary font-bold mb-1">
-                <span className="w-6 h-[2px] bg-primary"></span>
-                Buenas Prácticas
-              </div>
-              <h2 className="text-3xl font-extrabold text-secondary-dark mb-4">¿Cómo reciclar correctamente?</h2>
-              <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                Sigue estos consejos para que los materiales que entregas a los Verdecitos de ReciTunja lleguen en las mejores condiciones y puedan ser aprovechados.
-              </p>
-
-              {/* Tips Accordion */}
-              <div className="flex flex-col gap-3.5 w-full">
-                {TIPS_RECICLAJE.map((tip) => (
-                  <div 
-                    key={tip.id} 
-                    className="bg-white border border-gray-200/50 rounded-xl overflow-hidden shadow-sm transition-all duration-300"
-                  >
-                    <button
-                      className="w-full flex items-center justify-between p-4 text-left font-bold text-secondary-dark focus:outline-none hover:bg-gray-50"
-                      onClick={() => toggleTip(tip.id)}
-                    >
-                      <span className="flex items-center gap-3 text-sm md:text-base">
-                        <span className="text-xl">{tip.emoji}</span>
-                        <span>{tip.title}</span>
-                      </span>
-                      <i className={`fa-solid fa-chevron-down text-xs transition-transform duration-300 ${activeTip === tip.id ? 'rotate-180' : ''}`} />
-                    </button>
-                    <div 
-                      className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                        activeTip === tip.id ? 'max-h-40 border-t border-gray-100' : 'max-h-0'
-                      }`}
-                    >
-                      <div className="p-4 text-xs md:text-sm text-gray-500 leading-relaxed bg-cream/10">
-                        {tip.text}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-8 flex gap-4">
-                <Link 
-                  to="/educacion" 
-                  className="inline-flex items-center justify-center px-6 py-2.5 rounded-full font-bold text-xs bg-primary text-secondary-dark hover:bg-primary-dark hover:text-white transition-all duration-300"
-                >
-                  Página de educación ambiental <i className="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
-                </Link>
-              </div>
-            </div>
-
-            {/* RIGHT COLUMN: Separation Lists (Sí / No) */}
-            <div className="flex flex-col gap-6">
-              <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-primary font-bold mb-1">
-                <span className="w-6 h-[2px] bg-primary"></span>
-                Clasificación de Residuos
-              </div>
-              <h2 className="text-3xl font-extrabold text-secondary-dark mb-4">¿Qué recibimos en la Ruta?</h2>
-              <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                Recuerda entregar tus materiales clasificados, <strong>limpios y completamente secos</strong>.
-              </p>
-
-              <div className="grid md:grid-cols-2 gap-6 w-full">
-                {/* Sí recibimos */}
-                <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-6 shadow-inner">
-                  <h3 className="text-base font-bold text-emerald-800 flex items-center gap-2 mb-4">
-                    <i className="fa-solid fa-circle-check text-lg"></i> Sí recibimos
-                  </h3>
-                  <ul className="flex flex-col gap-2.5">
-                    {APROVECHABLES.slice(0, 5).map((mat) => (
-                      <li key={mat.id} className="flex items-start gap-2 text-xs text-gray-700 leading-relaxed font-semibold">
-                        <span className="text-emerald-500 mt-0.5 shrink-0"><i className="fa-solid fa-check"></i></span>
-                        <span>{mat.shortTitle}</span>
-                      </li>
-                    ))}
-                    <li className="text-xs text-gray-500 italic font-medium mt-1">
-                      y 4 grupos más...
-                    </li>
-                  </ul>
-                </div>
-
-                {/* No recibimos */}
-                <div className="bg-rose-50 border border-rose-100 rounded-2xl p-6 shadow-inner">
-                  <h3 className="text-base font-bold text-rose-800 flex items-center gap-2 mb-4">
-                    <i className="fa-solid fa-circle-xmark text-lg"></i> No recibimos
-                  </h3>
-                  <ul className="flex flex-col gap-2.5">
-                    {[
-                      "Icopor (poliestireno expandido).",
-                      "Plásticos chirriones (envolturas).",
-                      "Plásticos de un solo uso (desechables).",
-                      "Residuos reciclables sucios o mojados.",
-                      "Madera, mueblería o ropa vieja."
-                    ].map((item, i) => (
-                      <li key={i} className="flex items-start gap-2 text-xs text-gray-700 leading-relaxed font-semibold">
-                        <span className="text-rose-500 mt-0.5 shrink-0"><i className="fa-solid fa-xmark"></i></span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className="mt-8 flex gap-4">
-                <Link 
-                  to="/separacion" 
-                  className="inline-flex items-center justify-center px-6 py-2.5 rounded-full font-bold text-xs bg-primary text-secondary-dark hover:bg-primary-dark hover:text-white transition-all duration-300"
-                >
-                  Página de separación completa <i className="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
-                </Link>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      {/* Wave Transition Separation to Footer */}
-      <div className="section-wave bg-cream text-secondary-dark">
-        <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="currentColor"/>
-        </svg>
-      </div>
+      <WaveDivider from="bg-cream" to="text-secondary-dark" variant="dip" />
     </div>
   );
 };

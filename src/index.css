@@ -99,13 +99,25 @@ html {
 }
 
 /* Swiper custom styling */
+.gallery-swiper .swiper-wrapper {
+  transition-timing-function: linear !important;
+  will-change: transform;
+}
+
 .gallery-swiper .swiper-pagination-bullet-active {
   background: #3da862 !important;
 }
 
-.gallery-swiper .swiper-button-prev,
-.gallery-swiper .swiper-button-next {
-  color: #3da862 !important;
+.gallery-swiper .gallery-pagination {
+  bottom: 12px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-swiper .swiper-wrapper {
+    transition-duration: 0ms !important;
+    transition-timing-function: ease-out !important;
+    will-change: auto;
+  }
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

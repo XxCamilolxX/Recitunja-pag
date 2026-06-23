@@ -536,6 +536,10 @@ h1, h2, h3, h4, h5, h6 { font-weight: 700; line-height: 1.2; }
   width: 100%;
   padding-bottom: 3rem !important; /* space for pagination dots */
 }
+.gallery-swiper .swiper-wrapper {
+  transition-timing-function: linear !important;
+  will-change: transform;
+}
 .gallery-swiper .swiper-slide {
   border-radius: var(--border-radius);
   overflow: hidden;
@@ -566,6 +570,13 @@ h1, h2, h3, h4, h5, h6 { font-weight: 700; line-height: 1.2; }
 }
 .gallery-swiper .swiper-pagination-bullet-active {
   background: var(--primary-color);
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-swiper .swiper-wrapper {
+    transition-duration: 0ms !important;
+    transition-timing-function: ease-out !important;
+    will-change: auto;
+  }
 }
 .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
 .gallery-item {

@@ -139,11 +139,14 @@
   <script src="main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
+    const reduceGalleryMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     new Swiper('#gallery-swiper', {
       slidesPerView: 1,
       spaceBetween: 24,
       loop: true,
       centeredSlides: true,
+      speed: reduceGalleryMotion ? 0 : 5200,
       effect: 'coverflow',
       coverflowEffect: {
         rotate: 30,
@@ -152,10 +155,10 @@
         modifier: 1,
         slideShadows: false
       },
-      autoplay: {
-        delay: 3000,
+      autoplay: reduceGalleryMotion ? false : {
+        delay: 0,
         disableOnInteraction: false,
-        pauseOnMouseEnter: true
+        pauseOnMouseEnter: false
       },
       pagination: {
         el: '.swiper-pagination',
