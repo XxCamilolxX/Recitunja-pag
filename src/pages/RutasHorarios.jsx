@@ -66,7 +66,7 @@ const RutasHorarios = () => {
   return (
     <div className="w-full bg-cream">
       <PageHero
-        title="Routes and Schedules"
+        title="Rutas y horarios"
         description="Consulta las macro rutas, micro rutas, frecuencias y horarios de recolección de residuos aprovechables en Tunja."
       />
       <WaveDivider />
