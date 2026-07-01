@@ -37,26 +37,26 @@ const Navbar = () => {
     <header 
       ref={navbarRef}
       className={`fixed top-0 left-0 w-full z-[1000] transition-all duration-300 ${
-        isScrolled ? 'py-3 bg-white/95 shadow-lg border-b border-gray-200' : 'py-5 bg-white/90 border-b border-gray-100'
+        isScrolled ? 'py-2 bg-white/95 shadow-lg border-b border-gray-200' : 'py-3 bg-white/90 border-b border-gray-100'
       } backdrop-blur-md`}
     >
-      <div className="max-w-[1200px] mx-auto px-4 md:px-8 flex justify-between items-center">
-        {/* Logo */}
-        <WaveLink to="/" className="flex items-center gap-2">
+      <div className="max-w-[1400px] mx-auto px-4 md:px-6 flex items-center">
+        {/* Logo — fills available left space, negative margins keep header height unchanged */}
+        <WaveLink to="/" className="flex-shrink-0 mr-6">
           <img 
-            src="/logo-recitunja-2-20.png" 
+            src="/logo para header.png" 
             alt="ReciTunja Logo" 
-            className="w-[42px] h-[42px] object-contain"
+            className="h-[70px] md:h-[80px] w-auto object-contain -my-3 translate-x-15 translate-y-3"
           />
         </WaveLink>
 
-        {/* Desktop Links */}
-        <nav className="hidden xl:flex items-center gap-8">
+        {/* Desktop Links — flex-1 with uniform spacing, all items nowrap */}
+        <nav className="hidden xl:flex flex-1 items-center justify-center gap-5 2xl:gap-7">
           {NAV_LINKS.map((link) => (
             <WaveLink
               key={link.path}
               to={link.path}
-              className={`relative font-medium text-sm transition-colors duration-300 py-1 ${
+              className={`relative font-medium text-[12.5px] 2xl:text-sm whitespace-nowrap transition-colors duration-300 py-1 ${
                 isActive(link.path) 
                   ? 'text-primary' 
                   : 'text-secondary-dark/80 hover:text-primary'
@@ -69,11 +69,11 @@ const Navbar = () => {
           ))}
         </nav>
 
-        {/* Desktop CTA */}
-        <div className="hidden xl:block">
+        {/* Desktop CTA — fixed width, shrink-0, with left margin */}
+        <div className="hidden xl:block flex-shrink-0 ml-6">
           <WaveLink 
             to="/contacto" 
-            className="inline-flex items-center justify-center px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 bg-primary text-secondary-dark hover:bg-primary-dark hover:text-white hover:-translate-y-0.5 hover:shadow-md active:translate-y-0"
+            className="inline-flex items-center justify-center whitespace-nowrap px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 bg-primary text-secondary-dark hover:bg-primary-dark hover:text-white hover:-translate-y-0.5 hover:shadow-md active:translate-y-0"
           >
             Contáctanos 
             <i className="fa-solid fa-arrow-right ml-2 text-xs"></i>
@@ -82,7 +82,7 @@ const Navbar = () => {
 
         {/* Burger Button */}
         <button 
-          className="xl:hidden text-secondary-dark text-xl p-2 focus:outline-none"
+          className="xl:hidden text-secondary-dark text-xl p-2 focus:outline-none ml-auto"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Abrir menú"
         >

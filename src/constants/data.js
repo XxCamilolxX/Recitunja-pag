@@ -51,7 +51,7 @@ export const APROVECHABLES = [
     id: 5,
     title: "Metales y Ollas",
     shortTitle: "Metales y Ollas",
-    items: "Aerosoles, varillas, ollas y cubiertos.",
+    items: "Aerosoles domesticos, varillas, ollas y cubiertos.",
     color: "#A0A0A0", // Metal
     colorClass: "text-recycle-metal border-recycle-metal",
     bgClass: "bg-recycle-metal",
@@ -105,7 +105,7 @@ export const APROVECHABLES = [
     bgClass: "bg-recycle-metal",
     icon: "fa-gears",
     image: "/cobre.png",
-    details: "Metales de demolición o reparación hogareña como cables de cobre viejos, accesorios de bronce y chatarra en general."
+    details: "Incluye metales de cobre viejos, accesorios de bronce y chatarra en general."
   }
 ];
 

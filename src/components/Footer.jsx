@@ -20,15 +20,15 @@ const Footer = () => {
               <WaveLink 
                 key={link.path} 
                 to={link.path}
-                className="text-sm text-white/60 hover:text-primary transition-colors duration-300"
+                className="text-base text-white/60 hover:text-primary transition-colors duration-300"
               >
                 {link.name}
               </WaveLink>
             ))}
           </div>
 
-          {/* Social Icons */}
-          <div className="flex gap-3">
+          {/* Social Icons - White with green logo and glow */}
+          <div className="flex gap-4">
             {socialLinks.map((social) => (
               <a
                 key={social.name}
@@ -36,12 +36,12 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.name}
-                className="w-10 h-10 rounded-full bg-white/5 text-white flex items-center justify-center text-sm transition-all duration-300 hover:bg-primary hover:text-secondary-dark hover:-translate-y-1"
+                className="social-glow w-12 h-12 rounded-full flex items-center justify-center text-lg transition-all duration-300 cursor-pointer"
               >
                 {social.icon ? (
                   <i className={social.icon}></i>
                 ) : (
-                  <span className="font-black text-[13px] leading-none">X</span>
+                  <span className="font-black text-[15px] leading-none">X</span>
                 )}
               </a>
             ))}
@@ -49,8 +49,8 @@ const Footer = () => {
         </div>
 
         {/* Copyright */}
-        <div className="text-center text-xs text-white/40">
-          <p>Diseñado por Marketinglive.com.co - Todos los derechos reservados Recitunja.com &copy; {new Date().getFullYear()}</p>
+        <div className="text-center text-sm text-white/40">
+
         </div>
       </div>
     </footer>

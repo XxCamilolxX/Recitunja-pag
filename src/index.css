@@ -29,14 +29,15 @@
   --color-recycle-papel: #F5D76E;
 
   /* Tipografía */
-  --font-sans: 'Inter', sans-serif;
+  --font-sans: 'Montserrat', 'Inter', sans-serif;
 }
 
 /* Base Styles */
 body {
   background-color: #eef8f2;
   color: #1e3d2b;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Montserrat', 'Inter', sans-serif;
+  font-weight: 700;
   overflow-x: hidden;
 }
 
@@ -64,6 +65,27 @@ html {
   0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
   70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
   100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+@keyframes socialGlow {
+  0%, 100% { box-shadow: 0 0 8px rgba(91, 191, 122, 0.4), 0 0 20px rgba(91, 191, 122, 0.15); }
+  50% { box-shadow: 0 0 16px rgba(91, 191, 122, 0.7), 0 0 36px rgba(91, 191, 122, 0.3); }
+}
+
+.social-glow {
+  animation: socialGlow 2.5s ease-in-out infinite;
+  background: white !important;
+  color: #5bbf7a !important;
+  border: 2px solid rgba(91, 191, 122, 0.3);
+}
+
+.social-glow:hover {
+  animation: none;
+  box-shadow: 0 0 24px rgba(91, 191, 122, 0.8), 0 0 48px rgba(91, 191, 122, 0.4);
+  transform: translateY(-4px) scale(1.1);
+  background: white !important;
+  color: #2a8a4a !important;
+  border-color: #5bbf7a;
 }
 
 .animate-float-leaf {

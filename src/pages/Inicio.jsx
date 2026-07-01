@@ -104,14 +104,13 @@ const Inicio = () => {
         />
         
         <div className="max-w-[1200px] mx-auto px-4 md:px-8 relative z-10 w-full">
-          {/* Centered Hero Text */}
+          {/* Hero Content with Logo Image */}
           <div className="text-white flex flex-col items-start text-left max-w-xl">
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-3 leading-none drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]">
-              <span className="text-primary">RECI</span>TUNJA
-            </h1>
-            <p className="text-lg md:text-2xl italic font-light text-white mb-6 drop-shadow-[0_3px_14px_rgba(0,0,0,0.5)]">
-              Porque el medio ambiente eres tú
-            </p>
+            <img 
+              src="/RECITUNJA LOGOTIPO con borde blanco.png" 
+              alt="ReciTunja - Porque el medio ambiente eres tú" 
+              className="w-[280px] sm:w-[360px] md:w-[460px] h-auto mb-6 drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]"
+            />
 
             {/* Actions */}
             <div className="flex flex-wrap gap-3 justify-start">
@@ -141,7 +140,7 @@ const Inicio = () => {
 
       {/* MARQUEE BAR */}
       <div className="bg-primary py-4 overflow-hidden relative z-10 shadow-md">
-        <div className="flex whitespace-nowrap animate-marquee text-secondary-dark font-bold text-base md:text-lg">
+        <div className="flex whitespace-nowrap animate-marquee text-secondary-dark font-bold text-lg md:text-xl">
           {[...Array(4)].map((_, i) => (
             <div key={i} className="flex shrink-0 gap-10 px-5">
               <span><i className="fa-solid fa-leaf mr-2"></i> Reciclaje Sustentable</span>
@@ -177,14 +176,14 @@ const Inicio = () => {
 
         <div className="max-w-[1200px] mx-auto px-4 md:px-8 relative z-10">
           <div className="max-w-[640px] mb-8 md:mb-10">
-            <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-primary font-bold mb-3">
+            <div className="inline-flex items-center gap-2 text-sm uppercase tracking-widest text-primary font-bold mb-3">
               <span className="w-6 h-[2px] bg-primary"></span>
               Materiales Aprovechables
             </div>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-secondary-dark mb-3 leading-tight">
+            <h2 className="text-4xl md:text-6xl font-extrabold text-secondary-dark mb-3 leading-tight">
               ¿Qué podemos reciclar?
             </h2>
-            <p className="text-secondary-dark/65 text-sm md:text-base leading-relaxed">
+            <p className="text-secondary-dark/65 text-base md:text-lg leading-relaxed">
               Conoce los 9 grupos de materiales que la ruta selectiva de ReciTunja aprovecha diariamente.
             </p>
           </div>
@@ -192,7 +191,7 @@ const Inicio = () => {
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-14 items-center">
             <div ref={infoRef} className="lg:col-span-5 flex flex-col justify-center min-h-[340px] lg:min-h-[440px]" aria-live="polite">
               <div 
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase mb-4 w-fit animate-fade shadow-sm" 
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-sm font-bold uppercase mb-4 w-fit animate-fade shadow-sm" 
                 style={{ backgroundColor: `${activeMaterial.color}24`, color: activeMaterial.color }}
               >
                 <i className={`fa-solid ${activeMaterial.icon}`}></i> Grupo {activeIndex + 1} de {materialCount}
@@ -203,14 +202,14 @@ const Inicio = () => {
               </h3>
 
               <div className="mb-6 animate-fade">
-                <h4 className="text-[10px] uppercase tracking-[0.2em] text-secondary-dark/45 mb-2 font-black">Materiales incluidos</h4>
-                <p className="text-base md:text-lg font-bold leading-relaxed" style={{ color: activeMaterial.color }}>
+                <h4 className="text-xs uppercase tracking-[0.2em] text-secondary-dark/45 mb-2 font-black">Materiales incluidos</h4>
+                <p className="text-lg md:text-xl font-bold leading-relaxed" style={{ color: activeMaterial.color }}>
                   {activeMaterial.items}
                 </p>
               </div>
 
               <div 
-                className="bg-white/78 backdrop-blur-sm border border-white/80 rounded-2xl p-5 mb-7 text-sm md:text-base text-secondary-dark/72 leading-relaxed italic animate-fade shadow-[0_16px_45px_rgba(30,77,56,0.08)]"
+                className="bg-white/78 backdrop-blur-sm border border-white/80 rounded-2xl p-5 mb-7 text-base md:text-lg text-secondary-dark/72 leading-relaxed italic animate-fade shadow-[0_16px_45px_rgba(30,77,56,0.08)]"
                 style={{ borderLeft: `5px solid ${activeMaterial.color}` }}
               >
                 <strong className="text-secondary-dark">Consejo:</strong> {activeMaterial.details}
@@ -378,8 +377,8 @@ const Inicio = () => {
               <div 
                 className="hidden lg:block absolute right-3 bottom-3 md:right-10 md:bottom-12 z-20 rounded-2xl bg-white/12 border border-white/18 backdrop-blur-md px-4 py-3 text-white shadow-xl max-w-[220px]"
               >
-                <p className="text-[10px] uppercase tracking-[0.22em] text-white/60 font-black mb-1">Ruta selectiva</p>
-                <p className="text-sm font-bold leading-snug">Materiales limpios, secos y separados desde la fuente.</p>
+                <p className="text-xs uppercase tracking-[0.22em] text-white/60 font-black mb-1">Ruta selectiva</p>
+                <p className="text-base font-bold leading-snug">Materiales limpios, secos y separados desde la fuente.</p>
               </div>
             </div>
           </div>
