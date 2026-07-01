@@ -122,8 +122,9 @@ export const GALLERY_SLIDES = [
 ];
 
 export const GALLERY_VIDEOS = [
-  { id: 'bzlRK5unP74', title: "ReciTunja en acción", desc: "Conoce nuestro trabajo diario en la ruta selectiva de Tunja." },
-  { id: 'IvbAoRYY0pM', title: "Impacto ambiental ReciTunja", desc: "El impacto positivo de nuestra labor en la comunidad tunjana." }
+  { id: 'bzlRK5unP74', type: 'youtube', title: "ReciTunja en acción", desc: "Conoce nuestro trabajo diario en la ruta selectiva de Tunja." },
+  { id: 'IvbAoRYY0pM', type: 'youtube', title: "Impacto ambiental ReciTunja", desc: "El impacto positivo de nuestra labor en la comunidad tunjana." },
+  { id: 'fb-1', type: 'facebook', url: 'https://www.facebook.com/reel/1519244799577109', title: "ReciTunja en Facebook", desc: "Nuestra presencia y labor compartida en redes sociales." }
 ];
 
 export const NAV_LINKS = [

@@ -83,7 +83,7 @@ const LaEmpresa = () => {
               Nuestra Trayectoria
             </div>
             <h2 className="text-3xl font-extrabold text-secondary-dark mb-6">Reseña Histórica</h2>
-            <div className="text-gray-600 text-sm md:text-base leading-relaxed flex flex-col gap-4">
+            <div className="text-gray-600 text-sm md:text-base leading-relaxed flex flex-col gap-4 text-justify">
               <p>
                 Constituida legalmente el <strong>7 de agosto de 2009</strong> y conformada inicialmente por 19 recicladores de oficio, de los cuales el 80% son mujeres cabeza de familia. Nuestros asociados corresponden a sectores vulnerables (estratos 1 y 2 de Sisbén) con el anhelo conjunto de dignificar su labor.
               </p>
